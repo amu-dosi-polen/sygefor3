@@ -12,7 +12,7 @@ namespace Sygefor\Bundle\FrontBundle\Controller;
 use Monolog\Logger;
 use Sygefor\Bundle\ApiBundle\Controller\Account\AbstractAnonymousAccountController;
 use Sygefor\Bundle\FrontBundle\Form\ProfileType;
-use Sygefor\Bundle\MyCompanybundle\Entity\Trainee;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Trainee;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -38,15 +38,19 @@ class AnonymousAccountController extends AbstractAnonymousAccountController
         $trainee = new Trainee();
         $shibbolethAttributes = $this->get('security.token_storage')->getToken()->getAttributes();
         $trainee->setTitle($this->getDoctrine()->getRepository('SygeforCoreBundle:PersonTrait\Term\Title')->findOneBy(
-            array('name' => $shibbolethAttributes['title'])
+            array('name' => $shibbolethAttributes['supannCivilite'])
         ));
         $trainee->setOrganization($this->getDoctrine()->getRepository('SygeforCoreBundle:Organization')->find(1));
-//        $trainee->setLastName($shibbolethAttributes['givenName']);
+//        $trainee->setInstitution($this->getDoctrine()->getRepository('SygeforCoreBundle:Institution')->find(1));
+        $trainee->setLastName($shibbolethAttributes['sn']);
+        $trainee->setFirstName($shibbolethAttributes['givenName']);
         $trainee->setEmail($shibbolethAttributes['mail']);
         $trainee->setAddress($shibbolethAttributes['street']);
         $trainee->setZip($shibbolethAttributes['postalCode']);
         $trainee->setCity($shibbolethAttributes['postalAddress']);
         $trainee->setPhoneNumber($shibbolethAttributes['telephoneNumber']);
+        $trainee->setPublicType($shibbolethAttributes['primary_affiliation']);
+        $trainee->setStatus($shibbolethAttributes['primary_affiliation']);
 
         $form = $this->createForm(new ProfileType($this->get('sygefor_core.access_right_registry')), $trainee);
 
