@@ -3,48 +3,56 @@ sygefor_core:
     type:     annotation
     host:     "%back_host%"
     prefix:   /
+    schemes:  [https]
 
 sygefor_inscription:
     resource: "@SygeforInscriptionBundle/Controller/"
     type:     annotation
     host:     "%back_host%"
     prefix:   /
+    schemes:  [https]
 
 sygefor_institution:
     resource: "@SygeforInstitutionBundle/Controller/"
     type:     annotation
     host:     "%back_host%"
     prefix:   /
+    schemes:  [https]
 
 sygefor_trainee:
     resource: "@SygeforTraineeBundle/Controller/"
     type:     annotation
     host:     "%back_host%"
     prefix:   /
+    schemes:  [https]
 
 sygefor_trainer:
     resource: "@SygeforTrainerBundle/Controller/"
     type:     annotation
     host:     "%back_host%"
     prefix:   /
+    schemes:  [https]
 
 sygefor_training:
     resource: "@SygeforTrainingBundle/Controller/"
     type:     annotation
     host:     "%back_host%"
     prefix:   /
+    schemes:  [https]
 
 sygefor_myCompany:
     resource: "@SygeforMyCompanyBundle/Controller/"
     host:     "%back_host%"
     type:     annotation
     prefix:   /
+    schemes:  [https]
 
 sygefor_activity_report:
     resource: "@SygeforActivityReportBundle/Controller/"
     type:     annotation
     host:     "%back_host%"
     prefix:   /
+    schemes:  [https]
 
 sygefor_api:
     resource: "@SygeforApiBundle/Controller/"

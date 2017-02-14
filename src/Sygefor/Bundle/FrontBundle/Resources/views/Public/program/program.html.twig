@@ -20,11 +20,14 @@
                                         <div>
                                             {% set mounth = "" %}
                                             {% for session in search.items %}
-                                                {% if session.dateBegin | date('m') != mounth %}
-                                                    {% set mounth = session.dateBegin | date('m') %}
-                                                    <h3>{{ session.dateBegin | date('F') | trans }} {{ session.dateBegin | date('Y') }}</h3>
-                                                {% endif %}
-                                                {% include '@SygeforFront/Public/program/session-list-item.html.twig' %}
+						{% if session.displayOnline == true %}
+                                                    
+                                                	{% if session.dateBegin | date('m') != mounth %}
+                                                    		{% set mounth = session.dateBegin | date('m') %}
+                                                    		<h3>{{ session.dateBegin | date('F') | trans }} {{ session.dateBegin | date('Y') }}</h3>
+                                                	{% endif %}
+                                                	{% include '@SygeforFront/Public/program/session-list-item.html.twig' %}
+						{% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>

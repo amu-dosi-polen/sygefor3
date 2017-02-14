@@ -11,7 +11,7 @@ namespace Sygefor\Bundle\FrontBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Sygefor\Bundle\ApiBundle\Controller\TrainingController;
-use Sygefor\Bundle\MyCompanybundle\Entity\Inscription;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
 use Sygefor\Bundle\FrontBundle\Form\InscriptionType;
 use Sygefor\Bundle\TraineeBundle\Entity\AbstractTrainee;
 use Sygefor\Bundle\TrainingBundle\Entity\Session\AbstractSession;

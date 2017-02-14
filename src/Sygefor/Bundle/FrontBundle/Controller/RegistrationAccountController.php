@@ -10,7 +10,7 @@ namespace Sygefor\Bundle\FrontBundle\Controller;
 
 
 use Sygefor\Bundle\ApiBundle\Controller\Account\AbstractRegistrationAccountController;
-use Sygefor\Bundle\MyCompanybundle\Entity\Inscription;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
 use Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;

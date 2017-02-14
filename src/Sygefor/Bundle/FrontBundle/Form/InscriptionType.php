@@ -3,7 +3,7 @@
 namespace Sygefor\Bundle\FrontBundle\Form;
 
 
-use Sygefor\Bundle\MyCompanybundle\Entity\Inscription;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
 use Sygefor\Bundle\CoreBundle\Form\Type\EntityHiddenType;
 use Sygefor\Bundle\TraineeBundle\Entity\AbstractTrainee;
 use Sygefor\Bundle\TrainingBundle\Entity\Session\AbstractSession;

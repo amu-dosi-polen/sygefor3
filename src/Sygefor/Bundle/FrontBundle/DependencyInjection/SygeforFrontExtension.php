@@ -27,6 +27,6 @@ class SygeforFrontExtension extends Extension
         $loader->load('services.yml');
 
         $translator = new Translator('fr');
-        $translator->addResource('yml', __DIR__ . '/../Resources/translations/date.fr.yml', 'fr', 'date');
+        $translator->addResource('yaml', __DIR__ . '/../Resources/translations/date.fr.yml', 'fr', 'date');
     }
 }

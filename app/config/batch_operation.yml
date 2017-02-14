@@ -267,7 +267,8 @@ sygefor_core:
 
             inscription.attestation:
                 class: 'SygeforMyCompanyBundle:Inscription'
-                template: 'SygeforTraineeBundle:Inscription:attestation.pdf.twig'
+#                template: 'SygeforTraineeBundle:Inscription:attestation.pdf.twig'
+                template: 'SygeforInscriptionBundle:Inscription:attestation.pdf.twig'
                 key: inscription
                 filename: "attestation.pdf"
 

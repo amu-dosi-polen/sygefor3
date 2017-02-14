@@ -49,37 +49,26 @@
                     <td><span class="text-gray-light text-small">{{ inscription.createdAt | date:'dd/MM/yy' }}</span></td>
                     <td>
                         <a dialog-href-deprecated="inscription.detail({id: inscription.id})" ui-sref="inscription.detail.view({id: inscription.id, session: session.id})">{{ inscription.trainee.fullName }}</a>
-                        <!-- action button -->
-                        <div ng-if="inscription._accessRights.edit" class="btn-group">
-                            <button class="btn btn-link" data-toggle="dropdown"><span class="caret"></span></button>
-                            <ul class="dropdown-menu text-small" role="menu">
-                                <li ng-if="inscription.trainee._accessRights.view"><a ui-sref="trainee.detail.view({id: inscription.trainee.id})">Voir le profil</a></li>
-                                <li ng-if="!inscription.trainee._accessRights.view"><a>Profil non accessible</a></li>
-                                <li class="dropdown-submenu pull-left">
-                                    <a href="">Statut d'inscription</a>
-                                    <ul class="dropdown-menu text-small">
-                                        <li ng-repeat="status in status.inscription track by status.id" ng-class="{disabled :inscription.inscriptionStatus.id == status.id}"><a href="" ng-click="updateInscriptionStatus(inscription, status)"><i class="fa fa-check" ng-if="inscription.inscriptionStatus.id == status.id"></i> {{ status.name }}</a></li>
-                                    </ul>
-                                </li>
-                                <li class="dropdown-submenu pull-left" ng-if="inscription.inscriptionStatus.status == 2">
-                                    <a href="">Statut de presence</a>
-                                    <ul class="dropdown-menu text-small">
-                                        <li ng-repeat="status in status.presence track by status.id" ng-class="{disabled :inscription.presenceStatus.id == status.id}"><a href="" ng-click="updatePresenceStatus(inscription, status)"><i class="fa fa-check" ng-if="inscription.presenceStatus.id == status.id"></i> {{ status.name }}</a></li>
-                                    </ul>
-                                </li>
-                                <li ng-if="inscription._accessRights.delete" class="divider"></li>
-                                <li ng-if="inscription._accessRights.delete"><a href="" ng-click="delete(inscription)">Supprimer</a></li>
-                            </ul>
-                        </div>
-                        <br><span ng-if="!inscription.trainee._accessRights.view" class="text-light">{{ inscription.trainee.organization.name }}<span ng-if="!inscription.trainee._accessRights.view" class="text-light text-gray-light"> &ndash; </span></span><span class="text-light text-gray-light">{{ inscription.publicCategory.name }} &ndash; {{ inscription.institution.name }}</span>
-                    </td>
+		    </td>
                     <td class="text-right">
-                        <span ng-if="!inscription.presenceStatus" class="label" ng-class="$root.inscriptionStatusClass(inscription.inscriptionStatus.status)">
-                            {{ inscription.inscriptionStatus.name }}
-                        </span>
-                        <span ng-if="inscription.presenceStatus" class="label" ng-class="$root.presenceStatusClass(inscription.presenceStatus.status)">
-                            {{ inscription.presenceStatus.name }}
-                        </span>
+		            <div class="btn-group dropdown">
+                		<button class="btn btn-xs dropdown-toggle" ng-class="$root.inscriptionStatusClass(inscription.inscriptionStatus.status, 'btn')" data-toggle="dropdown">{{ inscription.inscriptionStatus.name }} <span class="caret"></span></button>
+                		<ul class="dropdown-menu text-small">
+                    			<li ng-repeat="status in inscriptionStatus track by status.id" ng-class="{disabled :inscription.inscriptionStatus.id == status.id}"><a href="" ng-click="updateInscriptionStatus(status)"><i class="fa fa-check" ng-if="inscription.inscriptionStatus.id == status.id"></i> {{ status.name }}</a></li>
+                		</ul>
+            		   </div>
+
+		            <div ng-if="inscription.presenceStatus || inscription.inscriptionStatus.status == 2" class="btn-group dropdown">
+                		<button class="btn btn-xs dropdown-toggle" ng-class="$root.presenceStatusClass(inscription.presenceStatus.status, 'btn')" data-toggle="dropdown">
+                    			<span ng-if="inscription.presenceStatus">{{ inscription.presenceStatus.name }}</span>
+                    			<span ng-if="!inscription.presenceStatus"><em>Statut de présence</em></span>
+                    			<span class="caret"></span>
+                		</button>
+                		<ul class="dropdown-menu text-small">
+                    			<li ng-repeat="status in presenceStatus track by status.id" ng-class="{disabled :inscription.presenceStatus.id == status.id}"><a href="" ng-click="updatePresenceStatus(status)"><i class="fa fa-check" ng-if="inscription.presenceStatus.id == status.id"></i> {{ status.name }}</a></li>
+                		</ul>
+            		   </div>
+
                     </td>
                 </tr>
                 </tbody>

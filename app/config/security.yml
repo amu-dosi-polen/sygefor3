@@ -85,7 +85,7 @@ security:
     access_control:
         # Back
         - { host: "%back_host%", path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { host: "%back_host%", path: ^/, role: IS_AUTHENTICATED_FULLY }
+        - { host: "%back_host%", path: ^/, role: IS_AUTHENTICATED_FULLY  }
 
     role_hierarchy:
         ROLE_TRAINEE:       ROLE_USER

@@ -9,7 +9,7 @@
 namespace Sygefor\Bundle\FrontBundle\Form;
 
 
-use Sygefor\Bundle\MyCompanybundle\Entity\Inscription;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
 use Sygefor\Bundle\CoreBundle\Form\Type\EntityHiddenType;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Term\EvaluationCriterion;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -18,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Sygefor\Bundle\MyCompanybundle\Entity\EvaluationNotedCriterion;
+use Sygefor\Bundle\MyCompanyBundle\Entity\EvaluationNotedCriterion;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EvaluationNotedCriterionType extends AbstractType

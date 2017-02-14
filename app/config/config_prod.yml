@@ -44,18 +44,18 @@ monolog:
             level:      info
 
         # channel : trainee_merge
-        trainee_merge:
-            type:         fingers_crossed
-            action_level: error
-            handler:      trainee_merge.grouped
-            channels:     trainee_merge
-        trainee_merge.grouped:
-            type:    group
-            members: [trainee_merge.streamed, buffered]
-        trainee_merge.streamed:
-            type:  stream
-            path:  "%kernel.logs_dir%/trainee_merge.%kernel.environment%.log"
-            level: debug
+#        trainee_merge:
+#            type:         fingers_crossed
+#            action_level: error
+#            handler:      trainee_merge.grouped
+#            channels:     trainee_merge
+#        trainee_merge.grouped:
+#            type:    group
+#            members: [trainee_merge.streamed, buffered]
+#        trainee_merge.streamed:
+#            type:  stream
+#            path:  "%kernel.logs_dir%/trainee_merge.%kernel.environment%.log"
+#            level: debug
 
         # channel : api
         api:

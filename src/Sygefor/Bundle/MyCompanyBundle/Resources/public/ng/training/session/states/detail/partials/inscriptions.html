@@ -52,21 +52,21 @@
                 <td>
                     <!-- readonly -->
                     <div ng-if="!session._accessRights.edit" class="btn-group dropdown">
-                        <span ng-if="!inscription.presenceStatus" class="label" ng-class="$root.inscriptionStatusClass(inscription.inscriptionStatus.status)">
+			<span ng-if="!inscription.presenceStatus || inscription.inscriptionStatus.status!=2" class="label" ng-class="$root.inscriptionStatusClass(inscription.inscriptionStatus.status)">
                             {{ inscription.inscriptionStatus.name }}
                         </span>
-                        <span ng-if="inscription.presenceStatus" class="label" ng-class="$root.presenceStatusClass(inscription.presenceStatus.status)">
+                        <span ng-if="inscription.presenceStatus &&  inscription.inscriptionStatus.status==2" class="label" ng-class="$root.presenceStatusClass(inscription.presenceStatus.status)">
                             {{ inscription.presenceStatus.name }}
                         </span>
                     </div>
 
                     <!-- editable -->
                     <div ng-if="session._accessRights.edit" class="btn-group dropdown">
-                        <button class="btn btn-xs dropdown-toggle" ng-if="!inscription.presenceStatus" class="label" ng-class="$root.inscriptionStatusClass(inscription.inscriptionStatus.status, 'btn')">
+                        <button class="btn btn-xs dropdown-toggle" ng-if="!inscription.presenceStatus || inscription.inscriptionStatus.status!=2" class="label" ng-class="$root.inscriptionStatusClass(inscription.inscriptionStatus.status, 'btn')" data-toggle="dropdown">
                             {{ inscription.inscriptionStatus.name }}
                             <span class="caret"></span>
                         </button>
-                        <button class="btn btn-xs dropdown-toggle" ng-if="inscription.presenceStatus" class="label" ng-class="$root.presenceStatusClass(inscription.presenceStatus.status, 'btn')">
+                        <button class="btn btn-xs dropdown-toggle" ng-if="inscription.presenceStatus &&  inscription.inscriptionStatus.status==2" class="label" ng-class="$root.presenceStatusClass(inscription.presenceStatus.status, 'btn')" data-toggle="dropdown">
                             {{ inscription.presenceStatus.name }}
                             <span class="caret"></span>
                         </button>

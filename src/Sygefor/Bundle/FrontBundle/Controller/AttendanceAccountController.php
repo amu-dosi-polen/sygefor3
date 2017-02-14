@@ -6,7 +6,7 @@ namespace Sygefor\Bundle\FrontBundle\Controller;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sygefor\Bundle\ApiBundle\Controller\Account\AttendanceAccountController as BaseAttendanceAccountController;
 use Sygefor\Bundle\MyCompanyBundle\Entity\EvaluationNotedCriterion;
-use Sygefor\Bundle\MyCompanybundle\Entity\Inscription;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
 use Sygefor\Bundle\FrontBundle\Form\EvaluationType;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;

@@ -42,6 +42,8 @@ class ProfileType extends TraineeType
         //        'required' => false,
         //        'label'    => 'Statut / fonction',
         //    ));
+	$builder->get('publicType')->setDisabled(true);
+
 
         $builder->remove('institution');
     }
