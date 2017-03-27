@@ -22,15 +22,17 @@ class ProfileType extends TraineeType
     {
         parent::buildForm($builder, $options);
 
-        //$builder->remove('status');
+        $builder->remove('status');
         //$builder->remove('service');
         $builder->remove('isPaying');
+        $builder->remove('addressType');
         $builder->get('email')->setDisabled(true);
         $builder->get('firstName')->setDisabled(true);
         $builder->get('lastName')->setDisabled(true);
         $builder->get('title')->setDisabled(true);
-        $builder->get('organization')->setDisabled(true);
-        $builder->get('status')->setDisabled(true);
+        $builder->remove('organization');
+        $builder->get('institution')->setDisabled(true);
+        $builder->get('service')->setDisabled(true);
         $builder->remove('isActive');
 
         //$builder
@@ -42,10 +44,8 @@ class ProfileType extends TraineeType
         //        'required' => false,
         //        'label'    => 'Statut / fonction',
         //    ));
-	$builder->get('publicType')->setDisabled(true);
+	    $builder->get('publicType')->setDisabled(true);
 
-
-        $builder->remove('institution');
     }
 
     /**

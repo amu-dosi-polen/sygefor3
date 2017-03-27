@@ -1,8 +1,27 @@
 {{ form_start(form) }}
 <section>
-        {% for child in form.children%}
-            {{ form_row(child) }}
-        {% endfor %}
+    <h2>Informations personnelles</h2>
+    {{ form_row(form.title) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.phoneNumber) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.zip) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.institution) }}
+    {{ form_row(form.service) }}
+    {{ form_row(form.publicType) }}
+    <br>
+    <h2>Responsable hiérarchique</h2>
+    {{ form_row(form.lastNameSup) }}
+    {{ form_row(form.firstNameSup) }}
+    {{ form_row(form.emailSup) }}
+    <br>
+    <h2>Correspondant formation</h2>
+    {{ form_row(form.lastNameCorr) }}
+    {{ form_row(form.firstNameCorr) }}
+    {{ form_row(form.emailCorr) }}
 </section>
 <section>
     <div class="row">

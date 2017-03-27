@@ -41,7 +41,7 @@ class AnonymousAccountController extends AbstractAnonymousAccountController
             array('name' => $shibbolethAttributes['supannCivilite'])
         ));
         $trainee->setOrganization($this->getDoctrine()->getRepository('SygeforCoreBundle:Organization')->find(1));
-//        $trainee->setInstitution($this->getDoctrine()->getRepository('SygeforCoreBundle:Institution')->find(1));
+
         $trainee->setLastName($shibbolethAttributes['sn']);
         $trainee->setFirstName($shibbolethAttributes['givenName']);
         $trainee->setEmail($shibbolethAttributes['mail']);
@@ -49,8 +49,29 @@ class AnonymousAccountController extends AbstractAnonymousAccountController
         $trainee->setZip($shibbolethAttributes['postalCode']);
         $trainee->setCity($shibbolethAttributes['postalAddress']);
         $trainee->setPhoneNumber($shibbolethAttributes['telephoneNumber']);
-        $trainee->setPublicType($shibbolethAttributes['primary_affiliation']);
-        $trainee->setStatus($shibbolethAttributes['primary_affiliation']);
+        $trainee->setPublicType($this->getDoctrine()->getRepository('Sygefor\Bundle\TraineeBundle\Entity\Term\PublicType')->findOneBy(
+            array('name' => $shibbolethAttributes['primary_affiliation'])
+        ));
+        $trainee->setStatus($shibbolethAttributes['postalCode']);
+        $trainee->setService($shibbolethAttributes['supannEntiteAffectation']);
+        
+        // Etablissement
+        $eppn = $shibbolethAttributes['eppn'];
+        if (stripos($eppn , "@")>0) {
+            $domaine = substr($eppn, stripos($eppn, "@") + 1);
+            switch($domaine) {
+                case "univ-amu.fr":
+                    $trainee->setInstitution($this->getDoctrine()->getRepository('Sygefor\Bundle\InstitutionBundle\Entity\AbstractInstitution')->findOneBy(
+                        array('name' => "AMU")
+                    ));
+                    break;
+                default:
+                    $trainee->setInstitution($this->getDoctrine()->getRepository('Sygefor\Bundle\InstitutionBundle\Entity\AbstractInstitution')->findOneBy(
+                        array('name' => "AMU")
+                    ));
+                    break;
+            }
+        }
 
         $form = $this->createForm(new ProfileType($this->get('sygefor_core.access_right_registry')), $trainee);
 

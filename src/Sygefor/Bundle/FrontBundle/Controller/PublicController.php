@@ -14,7 +14,8 @@ use Sygefor\Bundle\ApiBundle\Controller\TrainingController;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
 use Sygefor\Bundle\FrontBundle\Form\InscriptionType;
 use Sygefor\Bundle\TraineeBundle\Entity\AbstractTrainee;
-use Sygefor\Bundle\TrainingBundle\Entity\Session\AbstractSession;
+use Sygefor\Bundle\TraineeBundle\Entity\Term\EmailTemplate;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Session;
 use Sygefor\Bundle\TrainingBundle\Entity\Training\AbstractTraining;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
@@ -85,7 +86,7 @@ class PublicController extends Controller
         $now = new \DateTime();
         $pastSessions = array();
         $upcomingSessions = array();
-        /** @var AbstractSession $session */
+        /** @var Session $session */
         foreach ($training->getSessions() as $session) {
 
             $inscription = null;
@@ -112,6 +113,7 @@ class PublicController extends Controller
             if (method_exists($session, 'getModule') && $session->getModule()) {
                 $session->moduleToken = md5($session->getTraining()->getType() . $session->getTraining()->getId()) === $token;
             }
+
         }
 
         if ($this->getUser() && !$this->getUser()->getIsActive()) {
@@ -132,18 +134,18 @@ class PublicController extends Controller
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Sygefor\Bundle\TrainingBundle\Entity\Training\AbstractTraining $training
-     * @param \Sygefor\Bundle\TrainingBundle\Entity\Session\AbstractSession $session
+     * @param \Sygefor\Bundle\MyCompanyBundle\Entity\Session $session
      * @param null $token
      *
      * @Route("/training/inscription/{id}/{sessionId}/{token}", name="front.public.inscription", requirements={"id": "\d+", "sessionId": "\d+"})
      * @ParamConverter("training", class="SygeforTrainingBundle:Training\AbstractTraining", options={"id" = "id"})
-     * @ParamConverter("session", class="SygeforTrainingBundle:Session\AbstractSession", options={"id" = "sessionId"})
+     * @ParamConverter("session", class="SygeforMyCompanyBundle:Session", options={"id" = "sessionId"})
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @Template("@SygeforFront/Public/program/inscription.html.twig")
      *
      * @return array
      */
-    public function inscriptionAction(Request $request, AbstractTraining $training, AbstractSession $session, $token = null)
+    public function inscriptionAction(Request $request, AbstractTraining $training, Session $session, $token = null)
     {
         // in case shibboleth authentication done but user has not registered his account
         if (!is_object($this->getUser())) {
@@ -167,7 +169,9 @@ class PublicController extends Controller
             'session'=> $session
         ));
         if ($inscription) {
-            throw new ForbiddenOverwriteException('An inscription has already been found');
+            $this->get('session')->getFlashBag()->add('warning', "Vous êtes déjà inscrit à cette session.");
+            return $this->redirectToRoute('front.account.registrations');
+            //throw new ForbiddenOverwriteException('An inscription has already been found');
         }
         if (!$inscription) {
             $inscription = new Inscription();
@@ -179,6 +183,7 @@ class PublicController extends Controller
                 array('machineName' => 'waiting')
             )
         );
+
         $form = $this->createForm(new InscriptionType(), $inscription);
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
@@ -187,6 +192,43 @@ class PublicController extends Controller
                 $em->persist($inscription);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Votre inscription a bien été enregistrée.');
+
+                $id = $inscription->getId();
+                // Lien vers la page d'autorisation
+                $lien = "https://sygefor3.univ-amu.fr/account/registration/".$id."/valid";
+
+
+                if ($form['authorization']->getData()==TRUE) {
+                    $templateTerm = $this->container->get('sygefor_core.vocabulary_registry')->getVocabularyById('sygefor_trainee.vocabulary_email_template');
+                    $repo = $em->getRepository(get_class($templateTerm));
+                    /** @var EmailTemplate $template */
+                    $templates = $repo->findBy(array('name' => "Demande de validation d'inscription"));
+                    $subject = $templates[0]->getSubject();
+                    $body = $templates[0]->getBody();
+                    $newbody = str_replace("[session.formation.nom]", $inscription->getSession()->getTraining()->getName(), $body);
+                    $newbody = str_replace("[session.dateDebut]", $inscription->getSession()->getDateBegin()->format('d/m/Y'), $newbody);
+                    $newbody = str_replace("[stagiaire.prenom]", $inscription->getTrainee()->getFirstName(), $newbody);
+                    $newbody = str_replace("[stagiaire.nom]", $inscription->getTrainee()->getLastName(), $newbody);
+                    $newbody = str_replace("[lien]", $lien, $newbody);
+
+                    // Envoyer un mail au supérieur hiérarchique
+                    /*$body = "Bonjour,\n" .
+                        "Une inscription à la session du " . $inscription->getSession()->getDateBegin()->format('d/m/Y') . "\nde la formation intitulée '" . $inscription->getSession()->getTraining()->getName() . "'\n"
+                        . "a été réalisée par ".$inscription->getTrainee()->getFullName() .".\n"
+                        . "Pour autoriser ". $inscription->getTrainee()->getFullName()  . " à participer à cette formation, merci de valider l'inscription en cliquant sur le lien suivant :". "\n"
+                        . "http://www.univ-amu.fr";
+                    */
+                    $message = \Swift_Message::newInstance();
+                    $message->setFrom($this->container->getParameter('mailer_from'), "Sygefor AMU");
+                    $message->setReplyTo($inscription->getSession()->getTraining()->getOrganization()->getEmail());
+                    $message->setTo($inscription->getTrainee()->getEmailSup());
+                    $message->setSubject($subject);
+                    $message->setBody($newbody);
+
+                    $this->container->get('mailer')->send($message);
+
+                }
+
 
                 return $this->redirectToRoute(
                     'front.account.checkout', array(

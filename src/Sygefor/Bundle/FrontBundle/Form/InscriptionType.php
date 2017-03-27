@@ -8,6 +8,7 @@ use Sygefor\Bundle\CoreBundle\Form\Type\EntityHiddenType;
 use Sygefor\Bundle\TraineeBundle\Entity\AbstractTrainee;
 use Sygefor\Bundle\TrainingBundle\Entity\Session\AbstractSession;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Form\AbstractType;
@@ -38,6 +39,12 @@ class InscriptionType extends AbstractType
             ->add('motivation', TextareaType::class, array(
                 'label' => 'Motivation',
                 'attr' => array('placeholder' => 'Expliquez les raisons pour lesquelles vous souhaitez vous inscrire à cette sesssion.')
+            ))
+            ->add('authorization', CheckboxType::class, array(
+                'label' => 'Envoyer une demande d\'autorisation à mon supérieur hiérarchique',
+                'mapped' => false,
+                'required' => false,
+                'attr' => array('checked'   => 'checked'),
             ));
     }
 
