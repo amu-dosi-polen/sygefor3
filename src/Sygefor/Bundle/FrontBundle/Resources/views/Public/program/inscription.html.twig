@@ -49,8 +49,9 @@
                         {{ form_start(form) }}
                         {{ form_row(form.children.motivation) }}
                         {{ form_errors(form.children.motivation) }}
+                        {{ form_widget(form.children.authorization) }}
                         {{ form_errors(form) }}
-
+                        <br>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <button type="submit" class="btn btn-primary btn-block">Envoyer mon inscription</button>
@@ -110,6 +111,7 @@
                             {#</div>#}
                         {#</form>#}
                     {#{% endif %}#}
+
                 </div>
                 <div class="col-md-4 col-md-offset-1">
 
@@ -131,7 +133,7 @@
                                             {% if session.name is defined and session.name != "" %}
                                                 <li title="Intitulé de la session"><h4>{{ session.name }}</h4></li>
                                             {% endif %}
-                                            {% if session.place.name is defined %}
+                                        {#    {% if session.place.name is defined %}
                                                 <li title="Lieu de la session"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;&nbsp;{{ session.place.name }}</li>
                                             {% endif %}
                                             {% if session.hourNumber is defined and session.dayNumber is defined %}
@@ -139,6 +141,36 @@
                                             {% endif %}
                                             {% if session.schedule is defined and session.schedule | length > 0 %}
                                                 <li title="Horaires de la session"><i class="glyphicon glyphicon-time"></i>&nbsp;&nbsp;{{ session.schedule }}</li>
+                                            {% endif %} #}
+                                            {% if session.dates | length >0 %}
+                                                <li title="Dates">
+                                                    <table style="margin: auto">
+                                                        <thead>
+                                                        <tr>
+                                                            <th class="text-center"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Dates&nbsp;</th>
+                                                            <th class="text-center"><i class="glyphicon glyphicon-time"></i>&nbsp;Horaires&nbsp;</th>
+                                                            <th class="text-center"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Lieu&nbsp;</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {% for date in session.dates %}
+                                                            <tr >
+                                                                {% if date.dateEnd is defined and date.dateEnd is not null %}
+                                                                    {%  if date.dateEnd != date.dateBegin %}
+                                                                        <td>{{ date.dateBegin | date('d/m/y') }} -> {{ date.dateEnd | date('d/m/y') }}</td>
+                                                                    {% else %}
+                                                                        <td>{{ date.dateBegin | date('d/m/y') }} </td>
+                                                                    {% endif %}
+                                                                {% else %}
+                                                                    <td>{{ date.dateBegin | date('d/m/y') }} </td>
+                                                                {% endif %}
+                                                                <td>{{ date.schedule }}</td>
+                                                                <td>{{ date.place }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </li>
                                             {% endif %}
                                             {% if user.isPaying is defined and user.isPaying and session.price is defined %}
                                                 <li title="Tarif de la formation"><strong>&euro;</strong>&nbsp;&nbsp;{{ session.price }} &euro;</li>

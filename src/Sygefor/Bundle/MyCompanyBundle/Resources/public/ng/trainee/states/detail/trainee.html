@@ -65,6 +65,26 @@
                 </div>
             </div>
 
+            <div class="row mb-1">
+                <div class="col-lg-12">
+                    <h3>Responsable hiérarchique</h3>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <ul class="summary">
+                                <li><label>Nom</label> <span sf-xeditable="form.children.lastNameSup">{{ trainee.lastNameSup }}</span></li>
+                                <li><label>Prénom</label> <span sf-xeditable="form.children.firstNameSup">{{ trainee.firstNameSup }}</span></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="summary">
+                                <li><label>Mail</label> <span sf-xeditable="form.children.emailSup">{{ trainee.emailSup }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <ul class="nav nav-tabs">
                 <li ng-click="tab = 'inscriptions'" class="active"><a href="" data-toggle="tab"><span class="fa fa-graduation-cap"></span> Inscriptions ({{ trainee.inscriptions.length }})</a></li>
                 <li ng-click="tab = 'messages'"><a href="" data-toggle="tab"><span class="fa fa-send"></span> Messages ({{ trainee.messages.length ? trainee.messages.length : 0 }})</a></li>

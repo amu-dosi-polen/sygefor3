@@ -61,7 +61,7 @@
                                                 {% if upcomingSession.name is defined and upcomingSession.name != "" %}
                                                     <li title="Intitulé de la session"><h4>{{ upcomingSession.name }}</h4></li>
                                                 {% endif %}
-                                                {% if upcomingSession.place.name is defined %}
+{#                                                {% if upcomingSession.place.name is defined %}
                                                     <li title="Lieu de la session"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;&nbsp;{{ upcomingSession.place.name }}</li>
                                                 {% endif %}
                                                 {% if upcomingSession.hourNumber is defined and upcomingSession.dayNumber is defined %}
@@ -70,7 +70,61 @@
                                                 {% if upcomingSession.schedule is defined %}
                                                     <li title="Horaires de la session"><i class="glyphicon glyphicon-time"></i>&nbsp;&nbsp;{{ upcomingSession.schedule }}</li>
                                                 {% endif %}
-                                                {% if upcomingSession.maximumNumberOfRegistrations is defined and upcomingSession.maximumNumberOfRegistrations > 0 and upcomingSession.availablePlaces is defined %}
+                                                <li title="Dates"><i class="glyphicon glyphicon-calendar"></i>&nbsp;&nbsp;Dates</li>
+                                                {% for date in upcomingSession.dates %}
+                                                    {% if date.dateEnd is not null %}
+                                                        {%  if date.dateEnd != date.dateBegin %}
+                                                            <li title="Dates">Du  {{ date.dateBegin | date('d') }} {{ date.dateBegin | date('F')  }} {{ date.dateBegin | date('Y') }} au  {{ date.dateEnd | date('d') }} {{ date.dateEnd | date('F') }} {{ date.dateEnd | date('Y') }}, de {{ date.schedule }}</li>
+                                                        {% else %}
+                                                            <li title="Dates"> {{ date.dateBegin | date('d') }} {{ date.dateBegin | date('F')  }} {{ date.dateBegin | date('Y') }} de {{ date.schedule }}</li>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <li title="Dates"> {{ date.dateBegin | date('d') }} {{ date.dateBegin | date('F')  }} {{ date.dateBegin | date('Y') }} de {{ date.schedule }}</li>
+                                                    {% endif %}
+                                                {%  endfor %}#}
+                                                {% if upcomingSession.dates | length >0 %}
+                                                    <li title="Dates">
+                                                        <table style="margin: auto">
+                                                            <thead>
+                                                            <tr>
+                                                                <th class="text-center"><i class="glyphicon glyphicon-calendar"></i>&nbsp;Dates&nbsp;&nbsp;</th>
+                                                                <th class="text-center"><i class="glyphicon glyphicon-time"></i>&nbsp;Horaires&nbsp;&nbsp;</th>
+                                                                <th class="text-center"><i class="glyphicon glyphicon-map-marker"></i>&nbsp;Lieu&nbsp;&nbsp;</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for date in upcomingSession.dates %}
+                                                                <tr >
+                                                                    {% if date.dateEnd is defined and date.dateEnd is not null %}
+                                                                        {%  if date.dateEnd != date.dateBegin %}
+                                                                        <td>{{ date.dateBegin | date('d/m/y') }} -> {{ date.dateEnd | date('d/m/y') }}</td>
+                                                                        {% else %}
+                                                                        <td>{{ date.dateBegin | date('d/m/y') }} </td>
+                                                                        {% endif %}
+                                                                    {% else %}
+                                                                        <td>{{ date.dateBegin | date('d/m/y') }} </td>
+                                                                    {% endif %}
+                                                                    <td>{{ date.schedule }}</td>
+                                                                    <td>{{ date.place }}</td>
+                                                                </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+                                                    </li>
+                                                {% endif %}
+                                                {#
+                                                {% for date in upcomingSession.dates %}
+                                                    {% if date.dateEnd is not null %}
+                                                        {%  if date.dateEnd != date.dateBegin %}
+                                                            <li title="Dates">Du  {{ date.dateBegin | date('d') }} {{ date.dateBegin | date('F')  }} {{ date.dateBegin | date('Y') }} au  {{ date.dateEnd | date('d') }} {{ date.dateEnd | date('F') }} {{ date.dateEnd | date('Y') }}, de {{ date.schedule }}</li>
+                                                        {% else %}
+                                                            <li title="Dates"> {{ date.dateBegin | date('d') }} {{ date.dateBegin | date('F')  }} {{ date.dateBegin | date('Y') }} de {{ date.schedule }}</li>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <li title="Dates"> {{ date.dateBegin | date('d') }} {{ date.dateBegin | date('F')  }} {{ date.dateBegin | date('Y') }} de {{ date.schedule }}</li>
+                                                    {% endif %}
+                                                {%  endfor %} #}
+                                               {% if upcomingSession.maximumNumberOfRegistrations is defined and upcomingSession.maximumNumberOfRegistrations > 0 and upcomingSession.availablePlaces is defined %}
                                                     <li title="Nombre maximum d'inscrits ({{ upcomingSession.availablePlaces }} places disponibles)"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;{{ upcomingSession.maximumNumberOfRegistrations }} inscriptions max.</li>
                                                 {% endif %}
                                                 {% if user.isPaying is defined and user.isPaying and upcomingSession.price is defined %}

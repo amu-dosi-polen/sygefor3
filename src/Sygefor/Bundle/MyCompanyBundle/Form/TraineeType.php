@@ -26,14 +26,39 @@ class TraineeType extends BaseTraineeType
     {
         parent::buildForm($builder, $options);
 
-        $builder
-            ->add('disciplinaryDomain', EntityType::class, array(
+       $builder
+/*            ->add('disciplinaryDomain', EntityType::class, array(
                 'class' => Disciplinary::class,
                 'required' => false,
                 'label' => "Domaine disciplinaire",
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder('d')->where('d.parent IS NULL');
-                }))
+                }))*/
+
+           ->add('lastNameSup', null, array(
+               'required' => true,
+               'label'    => 'Nom',
+           ))
+           ->add('firstNameSup', null, array(
+               'required' => true,
+               'label'    => 'Prénom',
+           ))
+           ->add('emailSup', null, array(
+               'required' => true,
+               'label'    => 'Email',
+           ))
+           ->add('lastNameCorr', null, array(
+               'required' => false,
+               'label'    => 'Nom',
+           ))
+           ->add('firstNameCorr', null, array(
+               'required' => false,
+               'label'    => 'Prénom',
+           ))
+           ->add('emailCorr', null, array(
+               'required' => false,
+               'label'    => 'Email',
+           ))
         ;
     }
 

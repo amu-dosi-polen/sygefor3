@@ -8,6 +8,7 @@ use Sygefor\Bundle\TrainingBundle\Entity\Session\AbstractSession;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Sygefor\Bundle\MyCompanyBundle\Form\SessionType;
+use Sygefor\Bundle\MyCompanyBundle\Entity\DateSession;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Module;
 
 /**
@@ -44,6 +45,13 @@ class Session extends AbstractSession
      * @Serializer\Groups({"session", "inscription", "api"})
      */
     protected $price;
+
+    /**
+     * @var ArrayCollection $dates
+     * @ORM\OneToMany(targetEntity="Sygefor\Bundle\MyCompanyBundle\Entity\DateSession", mappedBy="session", cascade={"persist", "remove"})
+     * @Serializer\Groups({"session", "api.session"})
+     */
+    protected $dates;
 
     /**
      * @return string
@@ -110,6 +118,64 @@ class Session extends AbstractSession
     public function setPrice($price)
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getDates()
+    {
+        return $this->dates;
+    }
+
+    /**
+     * @param ArrayCollection $dates
+     */
+    public function setDates($dates)
+    {
+        $this->dates = $dates;
+    }
+    /**
+     * @param DateSession $dates
+     *
+     * @return bool
+     */
+    public function addDates($dates)
+    {
+        if (!$this->dates->contains($dates)) {
+            $this->dates->add($dates);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param DateSession $dates
+     *
+     * @return bool
+     */
+    public function removeDate($dates)
+    {
+        if ($this->dates->contains($dates)) {
+            $this->dates->removeElement($dates);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    function __construct()
+    {
+        $this->dates          = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        $this->setId(null);
+        $this->dates         = new ArrayCollection();
     }
 
     /**

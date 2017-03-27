@@ -28,7 +28,6 @@
                     {% else %}
                         {% set list = upcoming %}
                         {% include '@SygeforFront/Account/registration/registrations-list.html.twig' %}
-                        <a href="{{ path('front.account.registration.authorization', {ids: upcomingIds}) }}" class="btn btn-primary"><i class="glyphicon glyphicon-save-file hidden-xs"></i>&nbsp;&nbsp;Télécharger un formulaire d'autorisation hiérarchique</a>
                     {% endif %}
                 </section>
 
