@@ -30,6 +30,8 @@
                         <li><label>Inscriptions</label> <span sf-xeditable="form.children.registration">{{ $trainingBundle.registrationStates[session.registration] }}</span></li>
                         <li><label>Afficher en ligne</label> <span sf-xeditable="form.children.displayOnline">{{ session.displayOnline ? 'Oui' : 'Non' }}</span></li>
                         <li><label>Statut</label> <span sf-xeditable="form.children.status">{{ $trainingBundle.statusStates[session.status] }}</span></li>
+                        <li><label>Date</label> <span sf-xeditable="form.children.dateBegin">{{ session.dateBegin|date: 'dd/MM/yyyy' }}</span></li>
+                        <li><label>Date de fin</label> <span sf-xeditable="form.children.dateEnd">{{ session.dateEnd|date: 'dd/MM/yyyy' }}</span></li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
@@ -38,6 +40,8 @@
                         <li><label>Participants max</label> <span sf-xeditable="form.children.maximumNumberOfRegistrations">{{ session.maximumNumberOfRegistrations }}</span></li>
                         <li><label>Date limite</label> <span sf-xeditable="form.children.limitRegistrationDate">{{ session.limitRegistrationDate|date: 'dd/MM/yyyy' }}</span></li>
                         <li><label>Tarif</label> <span sf-xeditable="form.children.price">{{ session.price ? session.price : '0' }} €</span></li>
+                        <li><label>Nombre d'heures</label> <span sf-xeditable="form.children.hourNumber">{{ session.hourNumber }}</span></li>
+                        <li><label>Nombre de jours</label> <span sf-xeditable="form.children.dayNumber">{{ session.dayNumber }}</span></li>
                     </ul>
                 </div>
             </div>
