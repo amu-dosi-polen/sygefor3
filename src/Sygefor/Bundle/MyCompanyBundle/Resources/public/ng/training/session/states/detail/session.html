@@ -27,26 +27,28 @@
             <div class="row mb-1">
                 <div class="col-lg-6">
                     <ul class="summary">
-                        <li><label>Date</label> <span sf-xeditable="form.children.dateBegin">{{ session.dateBegin|date: 'dd/MM/yyyy' }}</span></li>
-                        <li><label>Date de fin</label> <span sf-xeditable="form.children.dateEnd">{{ session.dateEnd|date: 'dd/MM/yyyy' }}</span></li>
-                        <li><label>Horaires</label> <span sf-xeditable="form.children.schedule">{{ session.schedule }}</span></li>
-                        <li><label>Nombre d'heures</label> <span sf-xeditable="form.children.hourNumber">{{ session.hourNumber }}</span></li>
-                        <li><label>Nombre de jours</label> <span sf-xeditable="form.children.dayNumber">{{ session.dayNumber }}</span></li>
-                        <li><label>Tarif</label> <span sf-xeditable="form.children.price">{{ session.price ? session.price : '0' }} €</span></li>
+                        <li><label>Inscriptions</label> <span sf-xeditable="form.children.registration">{{ $trainingBundle.registrationStates[session.registration] }}</span></li>
+                        <li><label>Afficher en ligne</label> <span sf-xeditable="form.children.displayOnline">{{ session.displayOnline ? 'Oui' : 'Non' }}</span></li>
+                        <li><label>Statut</label> <span sf-xeditable="form.children.status">{{ $trainingBundle.statusStates[session.status] }}</span></li>
                     </ul>
                 </div>
                 <div class="col-lg-6">
                     <ul class="summary">
-                        <li><label>Lieu</label> <span sf-xeditable="form.children.place" data-mode="popup" data-type="select">{{ session.place.name }}</span></li>
-                        <li><label>Inscriptions</label> <span sf-xeditable="form.children.registration">{{ $trainingBundle.registrationStates[session.registration] }}</span></li>
-                        <li><label>Afficher en ligne</label> <span sf-xeditable="form.children.displayOnline">{{ session.displayOnline ? 'Oui' : 'Non' }}</span></li>
-                        <li><label>Statut</label> <span sf-xeditable="form.children.status">{{ $trainingBundle.statusStates[session.status] }}</span></li>
                         <li ng-if="!session.registration"><label>Nombre d'inscriptions</label> <span sf-xeditable="form.children.numberOfRegistrations">{{ session.numberOfRegistrations }}</span></li>
                         <li><label>Participants max</label> <span sf-xeditable="form.children.maximumNumberOfRegistrations">{{ session.maximumNumberOfRegistrations }}</span></li>
                         <li><label>Date limite</label> <span sf-xeditable="form.children.limitRegistrationDate">{{ session.limitRegistrationDate|date: 'dd/MM/yyyy' }}</span></li>
+                        <li><label>Tarif</label> <span sf-xeditable="form.children.price">{{ session.price ? session.price : '0' }} €</span></li>
                     </ul>
                 </div>
             </div>
+
+            <h3>Dates</h3>
+            <hr>
+            <!--
+             Dates
+            -->
+            <!--div dates-block="session"></div-->
+            <div ng-include src="'mycompanybundle/training/session/states/detail/partials/dates.html'" ng-controller="DatesViewController"></div>
 
             <ul class="nav nav-tabs">
                 <li ng-click="tab = 'inscriptions'" class="active"><a href="" data-toggle="tab"><span class="fa fa-graduation-cap"></span> {{ session.registration > 0 ? 'Inscriptions (' + session.inscriptions.length + ')' : 'Participants (' + getTotal() + ')' }}</a></li>

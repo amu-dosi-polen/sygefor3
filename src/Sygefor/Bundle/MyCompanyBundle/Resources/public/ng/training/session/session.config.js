@@ -58,7 +58,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
                 templateUrl: "states/detail/detail.html",
                 //reloadOnSearch:false,
                 controller: 'ListDetailController',
-                data:{
+                data: {
                     resultTemplateUrl: "mycompanybundle/training/session/states/detail/result.html"
                 },
                 states: {
@@ -67,13 +67,15 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
                         templateUrl: "mycompanybundle/training/session/states/detail/session.html",
                         controller: 'SessionDetailViewController',
                         resolve: {
-                            data: function($http, $stateParams) {
+                            data: function ($http, $stateParams) {
                                 var url = Routing.generate('session.view', {id: $stateParams.id});
-                                return $http({method: 'GET', url: url}).then (function (data) { return data.data; });
+                                return $http({method: 'GET', url: url}).then(function (data) {
+                                    return data.data;
+                                });
                             }
                         },
-                        breadcrumb: function(data, $filter) {
-                            return { label: $filter('date')(data.session.dateBegin, "dd MMMM y") }
+                        breadcrumb: function (data, $filter) {
+                            return {label: $filter('date')(data.session.dateBegin, "dd MMMM y")}
                         }
                     }
                 }
@@ -200,6 +202,44 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
     $dialogProvider.dialog("session.registrationChange", /* @ngInject */ {
         templateUrl: 'mycompanybundle/training/session/batch/registrationChange/registrationChange.html',
         controller: 'SessionRegistrationChange'
+    });
+
+    /**
+     * dates.add: modal for adding dates to a session
+     */
+    $dialogProvider.dialog('dates.add', /* @ngInject */ {
+        templateUrl: 'mycompanybundle/training/session/dialogs/dates/add.html',
+        controller: 'DatesAddController',
+        resolve:{
+            form: function ($http, $dialogParams){
+                return $http.get(Routing.generate('dates.add', {'session': $dialogParams.session.id})).then(function (response) {
+                    return response.data.form;
+                });
+            }
+        }
+    });
+
+    /**
+     * dates.remove : simple confirmation modal for dates remove
+     */
+    $dialogProvider.dialog('dates.remove', /* @ngInject */ {
+        templateUrl: 'mycompanybundle/training/session/dialogs/dates/dates-remove.html',
+        controller: 'DatesRemoveController'
+    });
+
+    /**
+     * dates.edit
+     */
+    $dialogProvider.dialog('dates.edit', /* @ngInject */ {
+        templateUrl: 'mycompanybundle/training/session/dialogs/dates/edit.html',
+        controller: 'DatesEditController',
+        resolve:{
+            data: function ($http, $dialogParams){
+                return $http.get(Routing.generate('dates.edit', {'dates': $dialogParams.dates.id})).then(function (response) {
+                    return response.data;
+                });
+            }
+        }
     });
 
     /**
