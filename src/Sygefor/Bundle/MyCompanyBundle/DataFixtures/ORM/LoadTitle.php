@@ -14,6 +14,6 @@ class LoadTitle extends AbstractTermLoad
 
     function getTerms()
     {
-        return array('Monsieur', 'Madame');
+        return array('M.', 'MME');
     }
 }

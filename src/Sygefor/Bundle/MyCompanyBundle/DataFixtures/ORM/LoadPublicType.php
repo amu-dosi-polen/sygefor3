@@ -18,9 +18,9 @@ class LoadPublicType extends AbstractTermLoad
     public function getTerms()
     {
         return array(
-            'Doctorant',
-            'Post-doctorant',
-            'Autre'
+            'employee',
+            'faculty',
+            'researcher'
         );
     }
 }

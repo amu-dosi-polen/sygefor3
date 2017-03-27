@@ -31,7 +31,7 @@ Nous vous informons que votre demande d'inscription à l'événement \"[session.
 Vous pouvez suivre l'évolution de votre demande à partir de votre espace personnel sur notre site : http://front_url.dev/#/account
 
 Avec nos cordiales salutations,
-L'équipe de votre Compagnie.",
+L'équipe Sygefor.",
                 'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 1),
                 'presenceStatus'    => null,
             ),
@@ -46,7 +46,7 @@ En cas de désistement d'une personne, nous vous inscrirons et vous serez imméd
 Les places étant limitées, nous vous prions instamment de nous informer au plus vite en cas de renoncement de votre part, afin de pouvoir proposer votre place à une autre personne.
 
 Avec nos cordiales salutations,
-L'équipe de votre Compagnie.",
+L'équipe Sygefor.",
                 'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 2),
                 'presenceStatus'    => null,
             ),
@@ -60,7 +60,7 @@ Nous sommes au regret de vous informer que votre demande d'inscription au stage 
 Nous espérons que votre demande pourra être satisfaite lors du prochain programme de formations de votre Compagnie.
 
 Avec nos cordiales salutations,
-L'équipe de votre Compagnie.",
+L'équipe Sygefor.",
                 'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 3),
                 'presenceStatus'    => null,
             ),
@@ -77,8 +77,44 @@ Les places étant limitées, nous vous prions instamment de nous informer au plu
 Nous rappellons qu'une absence non signalée a un stage entraîne l'annulation des inscriptions à tous les autres stages du programme en cours.
 
 Avec nos cordiales salutations,
-L'équipe de votre Compagnie.",
+L'équipe Sygefor.",
                 'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
+                'presenceStatus'    => null,
+            ),
+            array(
+                'name'    => "Statut d'inscription : avis favorable du N+1",
+                'subject' => "Votre demande d'inscription à reçu un avis favorable de votre supérieur",
+                'body'    => "[stagiaire.civilite],
+
+Nous avons le plaisir de vous informer que votre demande d'inscription au stage \"[session.formation.nom]\", prévu le [session.dateDebut], a reçu un avis favorable de la part de votre supérieur hiérarchique.
+Avec nos cordiales salutations,
+L'équipe Sygefor.",
+                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
+                'presenceStatus'    => null,
+            ),
+            array(
+                'name'    => "Avis défavorable du N+1",
+                'subject' => "Votre demande d'inscription à reçu un avis défavorable de votre supérieur",
+                'body'    => "[stagiaire.civilite],
+
+Nous sommes au regret de vous informer que votre demande d'inscription au stage \"[session.formation.nom]\", prévu le [session.dateDebut], a reçu un avis défavorable de la part de votre supérieur hiérarchique.
+Avec nos cordiales salutations,
+L'équipe Sygefor.",
+                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
+                'presenceStatus'    => null,
+            ),
+            array(
+                'name'    => "Demande de validation d'inscription",
+                'subject' => "Demande d'autorisation pour inscription à une formation",
+                'body'    => "Bonjour,
+
+Une inscription à la formation intitulée \"[session.formation.nom]\", prévue le [session.dateDebut],
+a été réalisée par [stagiaire.prenom] [stagiaire.nom].
+Pour autoriser la participation à cette formation, merci de valider l'inscription en cliquant sur le lien suivant :
+[lien]
+Avec nos cordiales salutations,
+L'équipe Sygefor.",
+                'inscriptionStatus' => null,
                 'presenceStatus'    => null,
             ),
         );

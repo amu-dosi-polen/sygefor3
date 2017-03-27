@@ -37,7 +37,7 @@ class LoadInscriptionStatus extends AbstractTermLoad
                 'name'        => 'Refusé',
                 'status'      => InscriptionStatus::STATUS_REJECTED,
                 'notify'      => false,
-                'machineName' => null,
+                'machineName' => 'refuse',
             ),
             array(
                 'name'        => 'Accepté',
@@ -50,6 +50,12 @@ class LoadInscriptionStatus extends AbstractTermLoad
                 'status'      => InscriptionStatus::STATUS_REJECTED,
                 'notify'      => true,
                 'machineName' => 'desist',
+            ),
+            array(
+                'name'        => 'Avis favorable du N+1',
+                'status'      => InscriptionStatus::STATUS_WAITING,
+                'notify'      => true,
+                'machineName' => 'favorable',
             ),
         );
     }
