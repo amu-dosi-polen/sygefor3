@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sygefor\Bundle\InscriptionBundle\Form\BaseInscriptionType;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Term\ActionType;
 
 /**
  * Class InscriptionType.
@@ -24,6 +25,10 @@ class InscriptionType extends BaseInscriptionType
             ->add('motivation', TextareaType::class, array(
                 'label' => 'Motivation',
                 'required' => false
+            ))
+            ->add('actiontype', 'entity', array(
+            'label' => 'Type de formation',
+            'class' => ActionType::class
             ));
 
         parent::buildForm($builder, $options);

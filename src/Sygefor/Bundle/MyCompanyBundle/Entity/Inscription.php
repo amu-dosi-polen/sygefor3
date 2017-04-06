@@ -40,6 +40,14 @@ class Inscription extends AbstractInscription
     protected $message;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Sygefor\Bundle\MyCompanyBundle\Entity\Term\ActionType")
+     * @ORM\JoinColumn(nullable=true)
+     * @Serializer\Groups({"Default", "api"})
+     */
+    protected $actiontype;
+
+
+    /**
      *
      */
     function __construct()
@@ -102,6 +110,22 @@ class Inscription extends AbstractInscription
     public function setMessage($message)
     {
         $this->message = $message;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getActiontype()
+    {
+        return $this->actiontype;
+    }
+
+    /**
+     * @param mixed $actiontype
+     */
+    public function setActiontype($actiontype)
+    {
+        $this->actiontype = $actiontype;
     }
 
     /**

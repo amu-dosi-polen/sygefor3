@@ -4,6 +4,7 @@ namespace Sygefor\Bundle\FrontBundle\Form;
 
 
 use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Term\ActionType;
 use Sygefor\Bundle\CoreBundle\Form\Type\EntityHiddenType;
 use Sygefor\Bundle\TraineeBundle\Entity\AbstractTrainee;
 use Sygefor\Bundle\TrainingBundle\Entity\Session\AbstractSession;
@@ -38,7 +39,11 @@ class InscriptionType extends AbstractType
             ))
             ->add('motivation', TextareaType::class, array(
                 'label' => 'Motivation',
-                'attr' => array('placeholder' => 'Expliquez les raisons pour lesquelles vous souhaitez vous inscrire à cette sesssion.')
+                'attr' => array('placeholder' => 'Expliquez les raisons pour lesquelles vous souhaitez vous inscrire à cette session.')
+            ))
+            ->add('actiontype', 'entity', array(
+                'label' => 'Type de formation',
+                'class' => ActionType::class
             ))
             ->add('authorization', CheckboxType::class, array(
                 'label' => 'Envoyer une demande d\'autorisation à mon supérieur hiérarchique',
