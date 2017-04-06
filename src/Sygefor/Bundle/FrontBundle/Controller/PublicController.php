@@ -237,6 +237,9 @@ class PublicController extends Controller
             }
         }
 
+        $sup = $inscription->getTrainee()->getFirstNameSup() ." ". $inscription->getTrainee()->getLastNameSup();
+        $this->get('session')->getFlashBag()->add('warning', 'Le supérieur hiérarchique que vous avez renseigné est '.$sup.'. Si ce n\'est pas la bonne personne, merci de mettre à jour la donnée dans le menu "Mon compte", onglet "Mon profil".');
+
         return array(
             'user' => $this->getUser(),
             'form' => $form->createView(),

@@ -57,11 +57,11 @@ class RegistrationAccountController extends AbstractRegistrationAccountControlle
     public function registrationsAction(Request $request)
     {
         $inscriptions = parent::registrationsAction($request);
-
         $upcoming = array();
         $upcomingIds = array();
         $past = array();
         $now = new \DateTime();
+        $sup = "vide";
         foreach ($inscriptions as $inscription) {
             if ($inscription->getSession()->getDateBegin() < $now) {
                 $past[] = $inscription;
@@ -71,7 +71,15 @@ class RegistrationAccountController extends AbstractRegistrationAccountControlle
                 $inscription->upcoming = true;
                 $upcoming[] = $inscription;
                 $upcomingIds[] = $inscription->getId();
+                if ($inscription->getInscriptionStatus()->getName() == "En attente") {
+                    $sup = $inscription->getTrainee()->getFirstNameSup() ." ". $inscription->getTrainee()->getLastNameSup();
+                }
             }
+        }
+
+        if ($sup!="vide") {
+
+//            $this->get('session')->getFlashBag()->add('warning', 'Le supérieur hiérarchique que vous avez renseigné est '.$sup.'. Si ce n\'est pas la bonne personne, merci de mettre à jour la donnée dans l\'onglet "Mon profil".');
         }
 
         return array('user' => $this->getUser(), 'upcoming' => $upcoming, 'past' => $past, 'upcomingIds' => implode(',', $upcomingIds));
@@ -213,7 +221,7 @@ class RegistrationAccountController extends AbstractRegistrationAccountControlle
 
                         } else {
                             // Sinon, on modifie le statut de l'inscription à "refusé" et on envoie un mail au stagiaire
-                            // Si avis favorable, on modifie le statut de l'inscription et on envoie un mail au stagiaire
+                            // Si avis défavorable, on modifie le statut de l'inscription et on envoie un mail au stagiaire
                             $registration->setInscriptionStatus(
                                 $this->getDoctrine()->getRepository('SygeforInscriptionBundle:Term\InscriptionStatus')->findOneBy(
                                     array('machineName' => 'refuse')
