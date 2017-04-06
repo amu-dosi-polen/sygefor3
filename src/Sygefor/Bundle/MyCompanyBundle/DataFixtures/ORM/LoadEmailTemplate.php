@@ -34,6 +34,7 @@ Avec nos cordiales salutations,
 L'équipe Sygefor.",
                 'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 1),
                 'presenceStatus'    => null,
+                'organization'      =>1,
             ),
             array(
                 'name'    => "Statut d'inscription : liste d'attente",
@@ -80,6 +81,7 @@ Avec nos cordiales salutations,
 L'équipe Sygefor.",
                 'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
                 'presenceStatus'    => null,
+                'organization'      =>1,
             ),
             array(
                 'name'    => "Statut d'inscription : avis favorable du N+1",
@@ -91,6 +93,7 @@ Avec nos cordiales salutations,
 L'équipe Sygefor.",
                 'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
                 'presenceStatus'    => null,
+                'organization'      =>1,
             ),
             array(
                 'name'    => "Avis défavorable du N+1",
@@ -102,6 +105,20 @@ Avec nos cordiales salutations,
 L'équipe Sygefor.",
                 'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
                 'presenceStatus'    => null,
+                'organization'      =>1,
+            ),
+            array(
+                'name'    => "Statut d'inscription : convoqué",
+                'subject' => "Convocation à une formation",
+                'body'    => "[stagiaire.civilite],
+
+Vous êtes convoqué(e) au stage \"[session.formation.nom]\".
+Vous trouverez en pièce jointe votre convocation, contenant les dates, horaires et lieux des séances.
+Avec nos cordiales salutations,
+L'équipe Sygefor.",
+                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
+                'presenceStatus'    => null,
+                'organization'      =>1,
             ),
             array(
                 'name'    => "Demande de validation d'inscription",
@@ -116,6 +133,7 @@ Avec nos cordiales salutations,
 L'équipe Sygefor.",
                 'inscriptionStatus' => null,
                 'presenceStatus'    => null,
+                'organization'      =>1,
             ),
         );
     }

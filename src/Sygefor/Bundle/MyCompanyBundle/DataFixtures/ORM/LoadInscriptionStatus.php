@@ -57,6 +57,12 @@ class LoadInscriptionStatus extends AbstractTermLoad
                 'notify'      => true,
                 'machineName' => 'favorable',
             ),
+            array(
+                'name'        => 'Convoqué',
+                'status'      => InscriptionStatus::STATUS_ACCEPTED,
+                'notify'      => true,
+                'machineName' => 'convoke',
+            ),
         );
     }
 }
