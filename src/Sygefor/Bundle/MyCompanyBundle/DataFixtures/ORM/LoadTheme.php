@@ -21,11 +21,16 @@ class LoadTheme extends AbstractTermLoad
     public function getTerms()
     {
         return array(
-            'Connaissances scientifiques',
-            'Techniques spécifiques',
-            'Prévention et sécurité / Ethique',
-            'Finances, comptabilité',
-            'Culture institutionnelle et efficacité personelle'
+            'Applications de gestion',
+            'Bureautique',
+            'Communication - efficacité personnelle',
+            'Enseignement et recherche',
+            'Formations métiers - environnement professionnel',
+            'Informatique et TIC',
+            'Langues',
+            'Management',
+            'Preparation concours',
+            'Santé et sécurité'
         );
     }
 }
