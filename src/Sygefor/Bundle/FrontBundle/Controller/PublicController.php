@@ -322,6 +322,7 @@ class PublicController extends Controller
 //        $filters->addFilter($types);
 
         $search->addFilter('filters', $filters);
+        $search->addSort('training.theme.source');
         $search->addSort('dateBegin');
         $search->addSort('training.name.source');
 

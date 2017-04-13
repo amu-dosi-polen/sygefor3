@@ -17,18 +17,60 @@
                                     </div>
                                 {% else %}
                                     <div class="session session--list">
-                                        <div>
-                                            {% set mounth = "" %}
-                                            {% for session in search.items %}
-						{% if session.displayOnline == true %}
-                                                    
-                                                	{% if session.dateBegin | date('m') != mounth %}
-                                                    		{% set mounth = session.dateBegin | date('m') %}
-                                                    		<h3>{{ session.dateBegin | date('F') | trans }} {{ session.dateBegin | date('Y') }}</h3>
-                                                	{% endif %}
-                                                	{% include '@SygeforFront/Public/program/session-list-item.html.twig' %}
-						{% endif %}
-                                            {% endfor %}
+                                        <h1>Liste des domaines de formation :</h1>
+                                        {% set theme = "" %}
+                                        {% for session in search.items %}
+                                            {% if session.displayOnline == true %}
+                                                {% if session.training.theme != theme and theme =="" %}
+                                                    {% set theme = session.training.theme %}
+                                                    <div  id="accordion" role="tablist" aria-multiselectable="true">
+                                                        <div >
+                                                            <div  role="tab" id="headingOne">
+                                                                <h3 >
+                                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#session{{ session.id }}" aria-expanded="true" aria-controls="collapseOne">
+                                                                        {{ session.training.theme }}
+                                                                    </a>
+                                                                </h3>
+                                                            </div>
+                                                        </div>
+                                                    <div id="session{{ session.id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                    <div class="panel-body">
+
+                                                {%  elseif session.training.theme != theme and theme !="" %}
+                                                    </div></div></div>
+                                                    {% set theme = session.training.theme %}
+                                                        <div  id="accordion" role="tablist" aria-multiselectable="true">
+                                                            <div>
+                                                                <div  role="tab" id="headingOne">
+                                                                    <h3 >
+                                                                        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#session{{ session.id }}" aria-expanded="true" aria-controls="collapseOne">
+                                                                            {{ session.training.theme }}
+                                                                        </a>
+                                                                    </h3>
+                                                                </div>
+                                                            </div>
+                                                            <div id="session{{ session.id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+                                                                <div class="panel-body">
+                                                {%  endif %}
+
+                                                                    {% include '@SygeforFront/Public/program/session-list-item.html.twig' %}
+
+                                            {#    {% set theme = "" %}
+                                                {% for session in search.items %}
+                                                    {% if session.displayOnline == true %}
+                                                        {% if session.training.theme != theme %}
+                                                            {% set theme = session.training.theme %}
+                                                            <h3>{{ session.training.theme }}</h3>
+                                                        {% endif %}
+
+                                                        {% include '@SygeforFront/Public/program/session-list-item.html.twig' %}
+                                                    {% endif %}
+                                                {% endfor %} #}
+
+
+                                            {% endif %}
+                                        {% endfor %}
+                                        </div>
                                         </div>
                                     </div>
                                 {% endif %}
