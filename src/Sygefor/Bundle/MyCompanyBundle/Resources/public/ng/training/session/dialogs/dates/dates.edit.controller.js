@@ -1,13 +1,13 @@
 /**
  * Trainer Add Controller
  */
-sygeforApp.controller('DatesEditController', ['$scope', '$modalInstance', '$dialog', '$dialogParams', '$state', '$user', '$http', '$window', 'growl', 'data', function ($scope, $modalInstance, $dialog, $dialogParams, $state, $user, $http, $window, growl, data) {
+sygeforApp.controller('DatesEditController', ['$scope', '$modalInstance', '$dialog', '$dialogParams', '$state', '$user', '$http', '$window', 'growl', 'data', function ($scope, $modalInstance, $dialog, $dialogParams, $state, $user, $http, $window, growl, data, $moment) {
 
     $scope.dialog = $modalInstance;
     $scope.dialog.params = $dialogParams;
     $scope.form = data.form;
     $scope.dates = data.dates;
-    $scope.$apply();
+    //$scope.$apply();
 
     /**
      * open an inscription creation window, then process the return by adding inscription
