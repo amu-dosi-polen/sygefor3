@@ -39,7 +39,7 @@ class LoadOrganizationData extends AbstractTermLoad
                 'address'     => '58, bd Charles Livon',
                 'zip'         => '13284',
                 'city'        => 'Marseille Cedex 07',
-                'email'       => 'drh-secretariat@univ-amu.fr',
+                'email'       => 'drh-test@univ.fr',
                 'phoneNumber' => '+33 491 396 500',
                 'faxNumber'   => '',
                 'website'     => 'http://www.univ-amu.fr',
