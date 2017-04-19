@@ -57,6 +57,12 @@ class Trainee extends AbstractTrainee implements UserInterface
      */
     protected $emailCorr;
 
+    /**
+     * @ORM\Column(name="fonction", type="string", length=255)
+     * @Serializer\Groups({"Default", "trainee", "api"})
+     */
+    protected $fonction;
+
 
     /**
      * @return mixed
@@ -208,6 +214,30 @@ class Trainee extends AbstractTrainee implements UserInterface
     public function getEmailCorr()
     {
         return $this->emailCorr;
+    }
+
+    /**
+     * Set fonction
+     *
+     * @param string $fonction
+     *
+     * @return Trainee
+     */
+    public function setFonction($fonction)
+    {
+        $this->fonction = $fonction;
+
+        return $this;
+    }
+
+    /**
+     * Get fonction
+     *
+     * @return string
+     */
+    public function getFonction()
+    {
+        return $this->fonction;
     }
 
     /**

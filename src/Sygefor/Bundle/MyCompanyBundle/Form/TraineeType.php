@@ -59,6 +59,10 @@ class TraineeType extends BaseTraineeType
                'required' => false,
                'label'    => 'Email',
            ))
+           ->add('fonction', null, array(
+               'required' => true,
+               'label'    => 'Fonction exercée',
+           ))
         ;
     }
 
