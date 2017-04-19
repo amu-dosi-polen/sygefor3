@@ -194,6 +194,7 @@ sygefor_core:
                     participantsMax: { property: "maximumNumberOfRegistrations" }
                     lieu: { property: "place.name" }
                     programme: { property: "training.program" }
+                    commentaires: { property: "comments" }
                     #nombrePresents: { property: "numberOfPresentPeople" }
                     inscriptions: { property: "inscriptions" }
                     url: { property: "frontUrl" }
