@@ -22,12 +22,14 @@ class InternshipType extends TrainingType
             ->add('publicTypes', EntityType::class, array(
                 'label' => 'Publics prioritaires',
                 'class' => PublicType::class,
+                'choice_label' => 'machineName',
                 'multiple' => true,
                 'required' => false,
             ))
             ->add('publicTypesRestrict', EntityType::class, array(
                 'label' => 'Publics cibles',
                 'class' => PublicType::class,
+                'choice_label' => 'machineName',
                 'multiple' => true,
                 'required' => false,
             ))

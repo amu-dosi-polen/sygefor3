@@ -17,10 +17,20 @@ class LoadPublicType extends AbstractTermLoad
 
     public function getTerms()
     {
-        return array(
-            'employee',
-            'faculty',
-            'researcher'
+        $publicType = array();
+        $publicType[] = array(
+                'name'         => 'employee',
+                'machine_name' => 'administratif',
+            );
+        $publicType[] = array(
+            'name'         => 'faculty',
+            'machine_name' => 'enseignant',
         );
+        $publicType[] = array(
+            'name'         => 'researcher',
+            'machine_name' => 'chercheur',
+        );
+
+        return $publicType;
     }
 }

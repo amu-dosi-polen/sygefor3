@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityRepository;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Trainee;
 use Sygefor\Bundle\TraineeBundle\Entity\Term\Disciplinary;
 use Sygefor\Bundle\TraineeBundle\Form\BaseTraineeType;
+use Sygefor\Bundle\TraineeBundle\Entity\Term\PublicType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -62,6 +63,13 @@ class TraineeType extends BaseTraineeType
            ->add('fonction', null, array(
                'required' => true,
                'label'    => 'Fonction exercée',
+           ))
+           ->remove('publicType')
+           ->add('publicType', 'entity', array(
+               'label'    => 'Type de personnel',
+               'class'    => PublicType::class,
+               'choice_label' => 'machine_name',
+               'required' => false,
            ))
         ;
     }
