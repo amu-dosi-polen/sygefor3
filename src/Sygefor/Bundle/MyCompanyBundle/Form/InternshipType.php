@@ -25,6 +25,12 @@ class InternshipType extends TrainingType
                 'multiple' => true,
                 'required' => false,
             ))
+            ->add('publicTypesRestrict', EntityType::class, array(
+                'label' => 'Publics cibles',
+                'class' => PublicType::class,
+                'multiple' => true,
+                'required' => false,
+            ))
             ->add('prerequisites', null, array(
                 'label'    => 'Pré-requis',
                 'required' => false,

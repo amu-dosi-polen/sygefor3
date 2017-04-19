@@ -19,6 +19,17 @@
                 <div class="col-md-7">
                     {% include '@SygeforFront/Public/program/training-tags.html.twig' %}
 
+                    {% if training.publicTypesRestrict is defined and training.publicTypesRestrict | length > 0 %}
+                        <h4>Public(s) cible(s)</h4>
+                       {% for key, publicTypeRestrict in training.publicTypesRestrict %}
+                            {% if key > 0 %}, {% endif %}
+                           {{ publicTypeRestrict.name }}
+                       {% endfor %}
+                    {% else %}
+                        <h4>Public(s) cible(s)</h4>
+                        <p>Tous publics</p>
+                    {% endif %}
+
                     {% if training.description is defined %}
                         <h4>Programme</h4>
                         <p>{{ training.description | nl2br }}</p>

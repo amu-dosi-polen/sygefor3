@@ -16,6 +16,7 @@ use Sygefor\Bundle\FrontBundle\Form\InscriptionType;
 use Sygefor\Bundle\TraineeBundle\Entity\AbstractTrainee;
 use Sygefor\Bundle\TraineeBundle\Entity\Term\EmailTemplate;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Session;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Internship;
 use Sygefor\Bundle\TrainingBundle\Entity\Training\AbstractTraining;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
@@ -184,69 +185,95 @@ class PublicController extends Controller
             )
         );
 
-        $form = $this->createForm(new InscriptionType(), $inscription);
-        if ($request->getMethod() === 'POST') {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($inscription);
-                $em->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Votre inscription a bien été enregistrée.');
-
-                $id = $inscription->getId();
-                // Lien vers la page d'autorisation
-                $lien = "https://sygefor3.univ-amu.fr/account/registration/".$id."/valid";
-
-
-                if ($form['authorization']->getData()==TRUE) {
-                    $templateTerm = $this->container->get('sygefor_core.vocabulary_registry')->getVocabularyById('sygefor_trainee.vocabulary_email_template');
-                    $repo = $em->getRepository(get_class($templateTerm));
-                    /** @var EmailTemplate $template */
-                    $templates = $repo->findBy(array('name' => "Demande de validation d'inscription"));
-                    $subject = $templates[0]->getSubject();
-                    $body = $templates[0]->getBody();
-                    $newbody = str_replace("[session.formation.nom]", $inscription->getSession()->getTraining()->getName(), $body);
-                    $newbody = str_replace("[session.dateDebut]", $inscription->getSession()->getDateBegin()->format('d/m/Y'), $newbody);
-                    $newbody = str_replace("[stagiaire.prenom]", $inscription->getTrainee()->getFirstName(), $newbody);
-                    $newbody = str_replace("[stagiaire.nom]", $inscription->getTrainee()->getLastName(), $newbody);
-                    $newbody = str_replace("[lien]", $lien, $newbody);
-
-                    // Envoyer un mail au supérieur hiérarchique
-                    /*$body = "Bonjour,\n" .
-                        "Une inscription à la session du " . $inscription->getSession()->getDateBegin()->format('d/m/Y') . "\nde la formation intitulée '" . $inscription->getSession()->getTraining()->getName() . "'\n"
-                        . "a été réalisée par ".$inscription->getTrainee()->getFullName() .".\n"
-                        . "Pour autoriser ". $inscription->getTrainee()->getFullName()  . " à participer à cette formation, merci de valider l'inscription en cliquant sur le lien suivant :". "\n"
-                        . "http://www.univ-amu.fr";
-                    */
-                    $message = \Swift_Message::newInstance();
-                    $message->setFrom($this->container->getParameter('mailer_from'), "Sygefor AMU");
-                    $message->setReplyTo($inscription->getSession()->getTraining()->getOrganization()->getEmail());
-                    $message->setTo($inscription->getTrainee()->getEmailSup());
-                    $message->setSubject($subject);
-                    $message->setBody($newbody);
-
-                    $this->container->get('mailer')->send($message);
-
+        $publicType = $this->getUser()->getPublicType();
+        $publicRestrict = $training->getPublicTypesRestrict();
+        $flagInsc = false;
+        if (sizeof($publicRestrict)) {
+            foreach ($publicRestrict as $public) {
+                if ($publicType == $public) {
+                    $flagInsc = true;
                 }
-
-
-                return $this->redirectToRoute(
-                    'front.account.checkout', array(
-                    'inscriptionId' => $inscription->getId())
-                );
             }
+        } else {
+            $flagInsc = true;
         }
 
-        $sup = $inscription->getTrainee()->getFirstNameSup() ." ". $inscription->getTrainee()->getLastNameSup();
-        $this->get('session')->getFlashBag()->add('warning', 'Le supérieur hiérarchique que vous avez renseigné est '.$sup.'. Si ce n\'est pas la bonne personne, merci de mettre à jour la donnée dans le menu "Mon compte", onglet "Mon profil".');
 
-        return array(
-            'user' => $this->getUser(),
-            'form' => $form->createView(),
-            'training' => $training,
-            'session' => $session,
-            'token' => $token
-        );
+        if ($flagInsc) {
+            $form = $this->createForm(new InscriptionType(), $inscription);
+            if ($request->getMethod() === 'POST') {
+                $form->handleRequest($request);
+                if ($form->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($inscription);
+                    $em->flush();
+                    $this->get('session')->getFlashBag()->add('success', 'Votre inscription a bien été enregistrée.');
+
+                    $id = $inscription->getId();
+                    // Lien vers la page d'autorisation
+                    $lien = "https://sygefor3.univ-amu.fr/account/registration/" . $id . "/valid";
+
+
+                    if ($form['authorization']->getData() == TRUE) {
+                        $templateTerm = $this->container->get('sygefor_core.vocabulary_registry')->getVocabularyById('sygefor_trainee.vocabulary_email_template');
+                        $repo = $em->getRepository(get_class($templateTerm));
+                        /** @var EmailTemplate $template */
+                        $templates = $repo->findBy(array('name' => "Demande de validation d'inscription"));
+                        $subject = $templates[0]->getSubject();
+                        $body = $templates[0]->getBody();
+                        $newbody = str_replace("[session.formation.nom]", $inscription->getSession()->getTraining()->getName(), $body);
+                        $newbody = str_replace("[session.dateDebut]", $inscription->getSession()->getDateBegin()->format('d/m/Y'), $newbody);
+                        $newbody = str_replace("[stagiaire.prenom]", $inscription->getTrainee()->getFirstName(), $newbody);
+                        $newbody = str_replace("[stagiaire.nom]", $inscription->getTrainee()->getLastName(), $newbody);
+                        $newbody = str_replace("[lien]", $lien, $newbody);
+
+                        // Envoyer un mail au supérieur hiérarchique
+                        /*$body = "Bonjour,\n" .
+                            "Une inscription à la session du " . $inscription->getSession()->getDateBegin()->format('d/m/Y') . "\nde la formation intitulée '" . $inscription->getSession()->getTraining()->getName() . "'\n"
+                            . "a été réalisée par ".$inscription->getTrainee()->getFullName() .".\n"
+                            . "Pour autoriser ". $inscription->getTrainee()->getFullName()  . " à participer à cette formation, merci de valider l'inscription en cliquant sur le lien suivant :". "\n"
+                            . "http://www.univ-amu.fr";
+                        */
+                        $message = \Swift_Message::newInstance();
+                        $message->setFrom($this->container->getParameter('mailer_from'), "Sygefor AMU");
+                        $message->setReplyTo($inscription->getSession()->getTraining()->getOrganization()->getEmail());
+                        $message->setTo($inscription->getTrainee()->getEmailSup());
+                        $message->setSubject($subject);
+                        $message->setBody($newbody);
+
+                        $this->container->get('mailer')->send($message);
+
+                    }
+
+
+                    return $this->redirectToRoute(
+                        'front.account.checkout', array(
+                            'inscriptionId' => $inscription->getId())
+                    );
+                }
+            }
+
+            $sup = $inscription->getTrainee()->getFirstNameSup() . " " . $inscription->getTrainee()->getLastNameSup();
+            $this->get('session')->getFlashBag()->add('warning', 'Le supérieur hiérarchique que vous avez renseigné est ' . $sup . '. Si ce n\'est pas la bonne personne, merci de mettre à jour la donnée dans le menu "Mon compte", onglet "Mon profil".');
+
+            return array(
+                'user' => $this->getUser(),
+                'form' => $form->createView(),
+                'training' => $training,
+                'session' => $session,
+                'token' => $token,
+                'flag' => $flagInsc
+            );
+        }
+        else {
+            //$this->get('session')->getFlashBag()->add('error', "Vous ne pouvez pas vous inscrire à cette session car vous ne faites pas partie des publics cibles autorisés à s'inscrire.");
+            return array(
+                'user' => $this->getUser(),
+                'training' => $training,
+                'session' => $session,
+                'flag' => $flagInsc
+            );
+        }
     }
 
     /**
@@ -293,6 +320,7 @@ class PublicController extends Controller
     {
         return array('user' => $this->getUser());
     }
+
 
     /**
      * @param $page

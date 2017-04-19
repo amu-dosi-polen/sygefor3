@@ -43,23 +43,29 @@
         <section class="session training-detail-view container-padding {{ training.type }}">
             <div class="row">
                 <div class="col-md-7">
-                    {% include '@SygeforFront/Public/program/training-tags.html.twig' %}
+                    {% if flag==true %}
+                        {% include '@SygeforFront/Public/program/training-tags.html.twig' %}
 
-                    {% if session.moduleToken is not defined or not session.moduleToken %}
-                        {{ form_start(form) }}
-                        {{ form_row(form.children.motivation) }}
-                        {{ form_errors(form.children.motivation) }}
-                        {{ form_row(form.children.actiontype) }}
-                        {{ form_widget(form.children.authorization) }}
-                        {{ form_errors(form) }}
-                        <br>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-primary btn-block">Envoyer mon inscription</button>
+                        {% if session.moduleToken is not defined or not session.moduleToken %}
+                            {{ form_start(form) }}
+                            {{ form_row(form.children.motivation) }}
+                            {{ form_errors(form.children.motivation) }}
+                            {{ form_row(form.children.actiontype) }}
+                            {{ form_widget(form.children.authorization) }}
+                            {{ form_errors(form) }}
+                            <br>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary btn-block">Envoyer mon inscription</button>
+                                </div>
                             </div>
-                        </div>
 
-                        {{ form_end(form) }}
+                            {{ form_end(form) }}
+                        {% endif %}
+
+                    {% else %}
+                        <h2> Inscription refusée </h2>
+                        <p>Vous ne pouvez pas vous inscrire à cette session car vous ne faites par partie des publics cibles autorisés à s'inscrire.</p>
                     {% endif %}
 
                     {#{% if session.moduleToken is defined and session.moduleToken %}#}

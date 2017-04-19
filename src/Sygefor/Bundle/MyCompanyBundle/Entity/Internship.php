@@ -29,6 +29,16 @@ class Internship extends AbstractTraining
     protected $publicTypes;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Sygefor\Bundle\TraineeBundle\Entity\Term\PublicType")
+     * @ORM\JoinTable(name="internship__internship_public_type_restrict",
+     *      joinColumns={@ORM\JoinColumn(name="intership_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="public_type_restrict_id", referencedColumnName="id")}
+     * )
+     * @Serializer\Groups({"training", "inscription", "api"})
+     */
+    protected $publicTypesRestrict;
+
+    /**
      * @var string
      * @ORM\Column(name="prerequisites", type="text", nullable=true)
      * @Serializer\Groups({"training", "api"})
@@ -38,6 +48,7 @@ class Internship extends AbstractTraining
     public function __construct()
     {
         $this->publicTypes = new ArrayCollection();
+        $this->publicTypesRestrict = new ArrayCollection();
 
         parent::__construct();
     }
@@ -45,6 +56,7 @@ class Internship extends AbstractTraining
     public function __clone()
     {
         $this->publicTypes = new ArrayCollection();
+        $this->publicTypesRestrict = new ArrayCollection();
 
         parent::__construct();
     }
@@ -94,6 +106,57 @@ class Internship extends AbstractTraining
         if (empty($this->publicTypes)) return "";
         $ptNames = array();
         foreach ($this->publicTypes as $pt) {
+            $ptNames[] = $pt->getName();
+        }
+
+        return implode (", ",$ptNames);
+    }
+
+    /**
+     * @param mixed $publicTypesRestrict
+     */
+    public function setPublicTypesRestrict($publicTypesRestrict)
+    {
+        $this->publicTypesRestrict = $publicTypesRestrict;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPublicTypesRestrict()
+    {
+        return $this->publicTypesRestrict;
+    }
+
+    /**
+     * @param PublicTypeRestrict $publicTypesRestrict
+     */
+    public function addPublicTypeRestrict($publicTypesRestrict)
+    {
+        if (!$this->publicTypesRestrict->contains($publicTypesRestrict)) {
+            $this->publicTypesRestrict->add($publicTypesRestrict);
+        }
+    }
+
+    /**
+     * @param PublicTypeRestrict $publicTypesRestrict
+     */
+    public function removePublicTypeRestrict($publicTypesRestrict)
+    {
+        if ($this->publicTypesRestrict->contains($publicTypesRestrict)) {
+            $this->publicTypesRestrict->removeElement($publicTypesRestrict);
+        }
+    }
+
+    /**
+     * HumanReadablePropertyAccessor helper : provides a list of public types as string
+     * @return String
+     */
+    public function getPublicTypesRestrictListString()
+    {
+        if (empty($this->publicTypesRestrict)) return "";
+        $ptNames = array();
+        foreach ($this->publicTypesRestrict as $pt) {
             $ptNames[] = $pt->getName();
         }
 
