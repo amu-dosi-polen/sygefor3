@@ -96,14 +96,14 @@ L'équipe Sygefor.",
                 'organization'      => $this->manager->find('SygeforCoreBundle:Organization', 1),
             ),
             array(
-                'name'    => "Avis défavorable du N+1",
+                'name'    => "Statut d'inscription : avis défavorable du N+1",
                 'subject' => "Votre demande d'inscription à reçu un avis défavorable de votre supérieur",
                 'body'    => "[stagiaire.civilite],
 
 Nous sommes au regret de vous informer que votre demande d'inscription au stage \"[session.formation.nom]\", prévu le [session.dateDebut], a reçu un avis défavorable de la part de votre supérieur hiérarchique.
 Avec nos cordiales salutations,
 L'équipe Sygefor.",
-                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
+                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 3),
                 'presenceStatus'    => null,
                 'organization'      => $this->manager->find('SygeforCoreBundle:Organization', 1),
             ),

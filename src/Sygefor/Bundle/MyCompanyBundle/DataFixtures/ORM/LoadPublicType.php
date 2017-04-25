@@ -20,7 +20,7 @@ class LoadPublicType extends AbstractTermLoad
         $publicType = array();
         $publicType[] = array(
                 'name'         => 'employee',
-                'machine_name' => 'administratif',
+                'machine_name' => 'biatss',
             );
         $publicType[] = array(
             'name'         => 'faculty',
