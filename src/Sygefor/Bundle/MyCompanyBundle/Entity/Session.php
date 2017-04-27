@@ -41,10 +41,46 @@ class Session extends AbstractSession
     protected $newModule;
 
     /**
-     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      * @Serializer\Groups({"session", "inscription", "api"})
      */
     protected $price;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Serializer\Groups({"session", "inscription", "api"})
+     */
+    protected $teachingCost;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Serializer\Groups({"session", "inscription", "api"})
+     */
+    protected $vacationCost;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Serializer\Groups({"session", "inscription", "api"})
+     */
+    protected $accommodationCost;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Serializer\Groups({"session", "inscription", "api"})
+     */
+    protected $mealCost;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Serializer\Groups({"session", "inscription", "api"})
+     */
+    protected $transportCost;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Serializer\Groups({"session", "inscription", "api"})
+     */
+    protected $materialCost;
 
     /**
      * @var ArrayCollection $dates
@@ -105,7 +141,7 @@ class Session extends AbstractSession
     }
 
     /**
-     * @return ArrayCollection
+     * @return mixed
      */
     public function getPrice()
     {
@@ -113,11 +149,107 @@ class Session extends AbstractSession
     }
 
     /**
-     * @param ArrayCollection $price
+     * @param mixed $price
      */
     public function setPrice($price)
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTeachingCost()
+    {
+        return $this->teachingCost;
+    }
+
+    /**
+     * @param mixed $teachingCost
+     */
+    public function setTeachingCost($teachingCost)
+    {
+        $this->teachingCost = $teachingCost;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getVacationCost()
+    {
+        return $this->vacationCost;
+    }
+
+    /**
+     * @param mixed $vacationCost
+     */
+    public function setVacationCost($vacationCost)
+    {
+        $this->vacationCost = $vacationCost;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAccommodationCost()
+    {
+        return $this->accommodationCost;
+    }
+
+    /**
+     * @param mixed $accommodationCost
+     */
+    public function setAccommodationCost($accommodationCost)
+    {
+        $this->accommodationCost = $accommodationCost;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMealCost()
+    {
+        return $this->mealCost;
+    }
+
+    /**
+     * @param mixed $mealCost
+     */
+    public function setMealCost($mealCost)
+    {
+        $this->mealCost = $mealCost;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTransportCost()
+    {
+        return $this->transportCost;
+    }
+
+    /**
+     * @param mixed $transportCost
+     */
+    public function setTransportCost($transportCost)
+    {
+        $this->transportCost = $transportCost;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMaterialCost()
+    {
+        return $this->materialCost;
+    }
+
+    /**
+     * @param mixed $materialCost
+     */
+    public function setMaterialCost($materialCost)
+    {
+        $this->materialCost = $materialCost;
     }
 
     /**
@@ -163,7 +295,7 @@ class Session extends AbstractSession
 
             return true;
         }
-        
+
         return false;
     }
 

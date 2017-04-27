@@ -38,10 +38,34 @@ class SessionType extends BaseSessionType
                 'label'    => "Intitulé",
                 'required' => false
             ))
-            ->add('price', MoneyType::class, array(
-                'label'    => "Prix",
+            ->add('teachingCost', MoneyType::class, array(
+                'label'    => "Coûts pédagogiques",
                 'required' => false
-            ));
+            ))
+            ->add('vacationCost', MoneyType::class, array(
+                'label'    => "Coûts en vacation",
+                'required' => false
+            ))
+            ->add('accommodationCost', MoneyType::class, array(
+                'label'    => "Frais de mission : hébergement",
+                'required' => false
+            ))
+            ->add('mealCost', MoneyType::class, array(
+                'label'    => "Frais de mission : repas",
+                'required' => false
+            ))
+            ->add('transportCost', MoneyType::class, array(
+                'label'    => "Frais de mission : transports",
+                'required' => false
+            ))
+            ->add('materialCost', MoneyType::class, array(
+                'label'    => "Frais de supports",
+                'required' => false
+            ))
+            ->add('price', MoneyType::class, array(
+            'label'    => "Prix",
+            'required' => false
+        ));
 
         if ($session && method_exists($session->getTraining(), 'getModules')) {
             $builder

@@ -120,11 +120,12 @@
                 </div>
                 <div class="block-body">
                     <ul class="list-unstyled text-small text-gray-light">
-                        <li><label>Frais de repas</label> <span class="pull-right inline-block" sf-xeditable="form.children.mealCost" data-mode="popup" data-placement="left">{{ session.mealCost | currency }}</span></li>
-                        <li><label>Reprographie</label> <span class="pull-right inline-block" sf-xeditable="form.children.reprographyCost" data-mode="popup" data-placement="left">{{ session.reprographyCost | currency }}</span></li>
-                        <li><label>Mission</label> <span class="pull-right inline-block" sf-xeditable="form.children.missionCost" data-mode="popup" data-placement="left">{{ session.missionCost | currency }}</span></li>
-                        <li><label>Intervenant</label> <span class="pull-right inline-block" sf-xeditable="form.children.intervenerCost" data-mode="popup" data-placement="left">{{ session.intervenerCost | currency }}</span></li>
-                        <li><label>Autres frais</label> <span class="pull-right inline-block" sf-xeditable="form.children.otherCost" data-mode="popup" data-placement="left">{{ session.otherCost | currency }}</span></li>
+                        <li><label>Coûts pédagogiques</label> <span class="pull-right inline-block" sf-xeditable="form.children.teachingCost" data-mode="popup" data-placement="left">{{ session.teachingCost | currency }}</span></li>
+                        <li><label>Coûts en vacation</label> <span class="pull-right inline-block" sf-xeditable="form.children.vacationCost" data-mode="popup" data-placement="left">{{ session.vacationCost | currency }}</span></li>
+                        <li><label>Frais de mission : hébergement</label> <span class="pull-right inline-block" sf-xeditable="form.children.accommodationCost" data-mode="popup" data-placement="left">{{ session.accommodationCost | currency }}</span></li>
+                        <li><label>Frais de mission : repas</label> <span class="pull-right inline-block" sf-xeditable="form.children.mealCost" data-mode="popup" data-placement="left">{{ session.mealCost | currency }}</span></li>
+                        <li><label>Frais de mission : transports</label> <span class="pull-right inline-block" sf-xeditable="form.children.transportCost" data-mode="popup" data-placement="left">{{ session.transportCost | currency }}</span></li>
+                        <li><label>Frais de supports</label> <span class="pull-right inline-block" sf-xeditable="form.children.materialCost" data-mode="popup" data-placement="left">{{ session.materialCost | currency }}</span></li>
                     </ul>
                 </div>
             </div>
@@ -139,8 +140,7 @@
                 </div>
                 <div class="block-body">
                     <ul class="list-unstyled text-small text-gray-light">
-                        <li><label>Droits d'inscription</label> <span class="pull-right inline-block" sf-xeditable="form.children.subscriptionRightTaking" data-mode="popup" data-placement="left">{{ session.subscriptionRightTaking | currency }}</span></li>
-                        <li><label>Autres</label> <span class="pull-right inline-block" sf-xeditable="form.children.otherTaking" data-mode="popup" data-placement="left">{{ session.otherTaking | currency }}</span></li>
+                        <li><label>Recettes</label> <span class="pull-right inline-block" sf-xeditable="form.children.taking" data-mode="popup" data-placement="left">{{ session.taking | currency }}</span></li>
                     </ul>
                 </div>
             </div>
