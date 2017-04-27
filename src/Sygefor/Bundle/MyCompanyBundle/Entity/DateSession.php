@@ -51,7 +51,7 @@ class DateSession
     protected $schedule;
 
     /**
-     * @ORM\Column(name="hourNumber", type="string", length=512, nullable=true)
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
      * @var String
      */
     protected $hourNumber;

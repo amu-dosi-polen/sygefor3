@@ -163,7 +163,7 @@ class Session extends AbstractSession
 
             return true;
         }
-
+        
         return false;
     }
 
