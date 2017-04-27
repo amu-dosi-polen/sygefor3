@@ -62,6 +62,10 @@ class SessionType extends BaseSessionType
                 'label'    => "Frais de supports",
                 'required' => false
             ))
+            ->add('taking', MoneyType::class, array(
+                'label'    => "Frais de supports",
+                'required' => false
+            ))
             ->add('price', MoneyType::class, array(
             'label'    => "Prix",
             'required' => false

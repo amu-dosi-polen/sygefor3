@@ -83,6 +83,12 @@ class Session extends AbstractSession
     protected $materialCost;
 
     /**
+     * @ORM\Column(type="float", nullable=true)
+     * @Serializer\Groups({"session", "inscription", "api"})
+     */
+    protected $taking;
+
+    /**
      * @var ArrayCollection $dates
      * @ORM\OneToMany(targetEntity="Sygefor\Bundle\MyCompanyBundle\Entity\DateSession", mappedBy="session", cascade={"persist", "remove"})
      * @Serializer\Groups({"session", "api.session"})
@@ -250,6 +256,22 @@ class Session extends AbstractSession
     public function setMaterialCost($materialCost)
     {
         $this->materialCost = $materialCost;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTaking()
+    {
+        return $this->taking;
+    }
+
+    /**
+     * @param mixed $taking
+     */
+    public function setTaking($taking)
+    {
+        $this->taking = $taking;
     }
 
     /**
