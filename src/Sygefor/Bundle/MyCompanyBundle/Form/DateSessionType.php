@@ -17,6 +17,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -47,7 +48,7 @@ class DateSessionType extends AbstractType
                 'label' => "Horaires",
                 'required' => false
             ))
-            ->add('hourNumber', null, array(
+            ->add('hourNumber', NumberType::class, array(
                 'label' => "Nombre d'heures",
                 'required' => false
             ))
