@@ -20,7 +20,7 @@ class LoadActionType extends AbstractTermLoad
         return array(
             'Adaptation au poste de travail',
             'Evolution prévisible des métiers',
-            'Développpement de nouvelles compétences'
+            'Développement de nouvelles compétences'
         );
     }
 }
