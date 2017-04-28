@@ -47,7 +47,7 @@
             </div>
 
             <div class="col-lg-6">
-                <h3>{{ inscription.publicType.name ? inscription.publicType.name : 'Profil professionnel' }}</h3><hr>
+                <h3>Profil professionnel</h3><hr>
                 <ul class="summary">
                     <li><label>Catégorie de public</label> {{ inscription.publicType.machineName }}</li>
                     <li><label>Payant</label> {{ inscription.isPaying ? 'Oui' : 'Non' }}</li>
@@ -71,6 +71,33 @@
                     </ul>
                 </form>
 
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-lg-12">
+                <form sf-xeditable-form="form" sf-href='inscription.view({id: inscription.id})' on-success="onSuccess(data)">
+                <h3>Evaluation de la session</h3>
+
+                <div ng-if="!inscription.criteria.length" class="well well-empty well-sm">
+                    Il n'y a pas d'évaluation remplie pour cette session.
+                </div>
+
+                <table ng-if="inscription.criteria.length" class="table table-hover table-search table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Critère</th>
+                            <th>Evaluation (note de 1 à 5)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="crit in inscription.criteria">
+                            <td> {{ crit.criterion.name }}</td>
+                            <td> {{crit.note}} </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </form>
             </div>
         </div>
 
