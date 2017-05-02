@@ -35,7 +35,7 @@ class Inscription extends AbstractInscription
 
     /**
      * @ORM\Column(name="message", type="text", nullable=true)
-     * @Serializer\Groups({"Default", "api.attendance"})
+     * @Serializer\Groups({"Default", "inscription", "api.attendance"})
      */
     protected $message;
 
