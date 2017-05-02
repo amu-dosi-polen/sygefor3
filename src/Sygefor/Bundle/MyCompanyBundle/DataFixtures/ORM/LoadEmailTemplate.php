@@ -91,7 +91,7 @@ L'équipe Sygefor.",
 Nous avons le plaisir de vous informer que votre demande d'inscription au stage \"[session.formation.nom]\", prévu le [session.dateDebut], a reçu un avis favorable de la part de votre supérieur hiérarchique.
 Avec nos cordiales salutations,
 L'équipe Sygefor.",
-                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
+                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 6),
                 'presenceStatus'    => null,
                 'organization'      => $this->manager->find('SygeforCoreBundle:Organization', 1),
             ),
@@ -109,14 +109,28 @@ L'équipe Sygefor.",
             ),
             array(
                 'name'    => "Statut d'inscription : convoqué",
-                'subject' => "Convocation à une formation",
+                'subject' => "Convocation à la formation [session.formation.nom]",
                 'body'    => "[stagiaire.civilite],
 
-Vous êtes convoqué(e) au stage \"[session.formation.nom]\".
-Vous trouverez en pièce jointe votre convocation, contenant les dates, horaires et lieux des séances.
-Avec nos cordiales salutations,
-L'équipe Sygefor.",
-                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 4),
+CE COURRIEL TIENT LIEU DE CONVOCATION.
+
+Nous vous confirmons votre inscription à la formation :
+
+\"[session.formation.nom]\".
+
+Celle-ci se déroulera selon le calendrier ci-dessous :
+[session.dates]
+
+Observations/remarques :
+[session.commentaires]
+
+
+Vous vous êtes engagé(e) à suivre cette formation dans son intégralité et nous attirons votre attention sur l'importance de cet engagement.
+En cas d'empêchement justifié, nous vous demandons de nous le signaler sans délai et par retour de courriel, afin de proposer la place à un agent inscrit sur liste d'attente.
+Veuillez également confirmer votre participation à votre chef de service.
+Cordialement,
+DRH-Formation",
+                'inscriptionStatus' => $this->manager->find('SygeforInscriptionBundle:Term\InscriptionStatus', 7),
                 'presenceStatus'    => null,
                 'organization'      => $this->manager->find('SygeforCoreBundle:Organization', 1),
             ),
@@ -129,11 +143,30 @@ Une inscription à la formation intitulée \"[session.formation.nom]\", prévue 
 a été réalisée par [stagiaire.prenom] [stagiaire.nom].
 Pour autoriser la participation à cette formation, merci de valider l'inscription en cliquant sur le lien suivant :
 [lien]
-Avec nos cordiales salutations,
-L'équipe Sygefor.",
+Cordialement,
+DRH-Formation",
                 'inscriptionStatus' => null,
                 'presenceStatus'    => null,
                 'organization'      => $this->manager->find('SygeforCoreBundle:Organization', 1),
+            ),
+            array(
+                'name'    => "Statut d'inscription : désistement",
+                'subject' => "Désistement à la formation [session.formation.nom]",
+                'body'    => "[stagiaire.civilite],
+
+Nous vous informons que nous avons bien pris en compte votre demande de désistement au stage
+
+\"[session.formation.nom]\",
+
+prévu aux dates suivantes :
+[session.dates]
+
+
+Cordialement,
+DRH-Formation",
+                'inscriptionStatus' => null,
+                'presenceStatus'    => null,
+                'organization'      => $this->manager->find('SygeforCoreBundle:Organization', 5),
             ),
         );
     }

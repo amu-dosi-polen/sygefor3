@@ -119,6 +119,15 @@ sygefor_core:
                     stagiaire: { property: trainee }
                     statutInscription: { property: inscriptionStatus.name }
                     statutPresence: { property: presenceStatus.name }
+            date:
+                class: 'SygeforMyCompanyBundle:DateSession'
+                alias: 'date'
+                fields:
+                    dateBegin: { property: dateBegin }
+                    dateEnd: { property: dateEnd }
+                    schedule: { property: schedule }
+                    hourNumber: { property: hourNumber }
+                    place: { property: place }
             trainee:
                 class: 'SygeforMyCompanyBundle:Trainee'
                 alias: 'stagiaire'
@@ -197,6 +206,7 @@ sygefor_core:
                     commentaires: { property: "comments" }
                     #nombrePresents: { property: "numberOfPresentPeople" }
                     inscriptions: { property: "inscriptions" }
+                    dates: { property: "dates" }
                     url: { property: "frontUrl" }
                     # Session
                     tarif: { property: "price" }
