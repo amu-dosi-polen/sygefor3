@@ -38,35 +38,35 @@ class SessionType extends BaseSessionType
                 'label'    => "Intitulé",
                 'required' => false
             ))
-            ->add('teachingCost', MoneyType::class, array(
+            ->add('teachingCost', TextType::class, array(
                 'label'    => "Coûts pédagogiques",
                 'required' => false
             ))
-            ->add('vacationCost', MoneyType::class, array(
+            ->add('vacationCost', TextType::class, array(
                 'label'    => "Coûts en vacation",
                 'required' => false
             ))
-            ->add('accommodationCost', MoneyType::class, array(
+            ->add('accommodationCost', TextType::class, array(
                 'label'    => "Frais de mission : hébergement",
                 'required' => false
             ))
-            ->add('mealCost', MoneyType::class, array(
+            ->add('mealCost', TextType::class, array(
                 'label'    => "Frais de mission : repas",
                 'required' => false
             ))
-            ->add('transportCost', MoneyType::class, array(
+            ->add('transportCost', TextType::class, array(
                 'label'    => "Frais de mission : transports",
                 'required' => false
             ))
-            ->add('materialCost', MoneyType::class, array(
+            ->add('materialCost', TextType::class, array(
                 'label'    => "Frais de supports",
                 'required' => false
             ))
-            ->add('taking', MoneyType::class, array(
+            ->add('taking', TextType::class, array(
                 'label'    => "Frais de supports",
                 'required' => false
             ))
-            ->add('price', MoneyType::class, array(
+            ->add('price', TextType::class, array(
             'label'    => "Prix",
             'required' => false
         ));
