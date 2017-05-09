@@ -220,11 +220,11 @@ class RegistrationAccountController extends AbstractRegistrationAccountControlle
                             $this->get('session')->getFlashBag()->add('success', 'L\'avis favorable a bien été émis.');
 
                         } else {
-                            // Sinon, on modifie le statut de l'inscription à "refusé" et on envoie un mail au stagiaire
+                            // Sinon, on modifie le statut de l'inscription à "avis défavorable" et on envoie un mail au stagiaire
                             // Si avis défavorable, on modifie le statut de l'inscription et on envoie un mail au stagiaire
                             $registration->setInscriptionStatus(
                                 $this->getDoctrine()->getRepository('SygeforInscriptionBundle:Term\InscriptionStatus')->findOneBy(
-                                    array('machineName' => 'refuse')
+                                    array('machineName' => 'defavorable')
                                 )
                             );
                             $em = $this->getDoctrine()->getManager();
