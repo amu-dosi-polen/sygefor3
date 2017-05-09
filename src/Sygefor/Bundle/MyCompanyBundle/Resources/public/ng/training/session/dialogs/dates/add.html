@@ -25,11 +25,18 @@
                 </span>
             </div>
         </div>
-        <div class="form-group" ng-class="{'has-error': form.children.schedule.errors.length }">
-            <label class="col-sm-3 control-label" for="{{ form.children.schedule.id }}">{{ form.children.schedule.label }}</label>
+        <div class="form-group" ng-class="{'has-error': form.children.scheduleMorn.errors.length }">
+            <label class="col-sm-3 control-label" for="{{ form.children.scheduleMorn.id }}">{{ form.children.scheduleMorn.label }}</label>
             <div class="col-sm-3">
-                <span sf-form-widget="form.children.schedule" class="form-control"/>
-                <div ng-if="error.length" ng-repeat="error in form.children.schedule.errors" class="help-block">{{ error }}</div>
+                <span sf-form-widget="form.children.scheduleMorn" class="form-control"/>
+                <div ng-if="error.length" ng-repeat="error in form.children.scheduleMorn.errors" class="help-block">{{ error }}</div>
+            </div>
+        </div>
+        <div class="form-group" ng-class="{'has-error': form.children.scheduleAfter.errors.length }">
+            <label class="col-sm-3 control-label" for="{{ form.children.scheduleAfter.id }}">{{ form.children.scheduleAfter.label }}</label>
+            <div class="col-sm-3">
+                <span sf-form-widget="form.children.scheduleAfter" class="form-control"/>
+                <div ng-if="error.length" ng-repeat="error in form.children.scheduleAfter.errors" class="help-block">{{ error }}</div>
             </div>
         </div>
         <div class="form-group" ng-class="{'has-error': form.children.hourNumber.errors.length }">

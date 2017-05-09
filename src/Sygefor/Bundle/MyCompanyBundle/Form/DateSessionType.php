@@ -43,8 +43,12 @@ class DateSessionType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'required' => false,
             ))
-            ->add('schedule', null, array(
-                'label' => "Horaires",
+            ->add('scheduleMorn', null, array(
+                'label' => "Horaires matin",
+                'required' => false
+            ))
+            ->add('scheduleAfter', null, array(
+                'label' => "Horaires après-midi",
                 'required' => false
             ))
             ->add('hourNumber', TextType::class, array(

@@ -45,10 +45,16 @@ class DateSession
     protected $dateEnd;
 
     /**
-     * @ORM\Column(name="schedule", type="string", length=512, nullable=true)
+     * @ORM\Column(name="scheduleMorn", type="string", length=512, nullable=true)
      * @var String
      */
-    protected $schedule;
+    protected $scheduleMorn;
+
+    /**
+     * @ORM\Column(name="scheduleAfter", type="string", length=512, nullable=true)
+     * @var String
+     */
+    protected $scheduleAfter;
 
     /**
      * @ORM\Column(type="decimal", scale=2, nullable=true)
@@ -147,17 +153,33 @@ class DateSession
     /**
      * @return mixed
      */
-    public function getSchedule()
+    public function getScheduleMorn()
     {
-        return $this->schedule;
+        return $this->scheduleMorn;
     }
 
     /**
-     * @param mixed $schedule
+     * @param mixed $scheduleMorn
      */
-    public function setSchedule($schedule)
+    public function setScheduleMorn($scheduleMorn)
     {
-        $this->schedule = $schedule;
+        $this->scheduleMorn = $scheduleMorn;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScheduleAfter()
+    {
+        return $this->scheduleAfter;
+    }
+
+    /**
+     * @param mixed $scheduleAfter
+     */
+    public function setScheduleAfter($scheduleAfter)
+    {
+        $this->scheduleAfter = $scheduleAfter;
     }
 
     /**

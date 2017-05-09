@@ -102,14 +102,14 @@ sygefor_core:
                     manager.email: "Email"
         mailing:
             organization:
-                class: 'SygeforCoreBundle:Organization'
+                class: 'Sygefor\Bundle\CoreBundle\Entity\Organization'
                 excludeFromFormType: true
                 alias: 'centre'
                 fields:
                     nom: { property: name }
                     code: { property: code }
             inscription:
-                class: 'SygeforMyCompanyBundle:Inscription'
+                class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Inscription'
                 emailPath: 'trainee.email'
                 alias: 'inscription'
                 fields:
@@ -119,17 +119,9 @@ sygefor_core:
                     stagiaire: { property: trainee }
                     statutInscription: { property: inscriptionStatus.name }
                     statutPresence: { property: presenceStatus.name }
-            date:
-                class: 'SygeforMyCompanyBundle:DateSession'
-                alias: 'date'
-                fields:
-                    dateBegin: { property: dateBegin }
-                    dateEnd: { property: dateEnd }
-                    schedule: { property: schedule }
-                    hourNumber: { property: hourNumber }
-                    place: { property: place }
+                    dates: { property: session.dates }
             trainee:
-                class: 'SygeforMyCompanyBundle:Trainee'
+                class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Trainee'
                 alias: 'stagiaire'
                 emailPath: 'email'
                 fields:
@@ -138,8 +130,8 @@ sygefor_core:
                     civilite: { property: title }
                     nomComplet: { property: fullName }
                     nomNaissance: { property: maidenName }
-                    nom: { property: firstName }
-                    prenom: { property: lastName }
+                    nom: { property: lastName }
+                    prenom: { property: firstName }
                     # CoordinatesTrait
                     adresse: { property: address }
                     codePostal: { property: zip }
@@ -155,7 +147,7 @@ sygefor_core:
                     # Trainee
                     inscriptions: { property: inscriptions }
             trainer:
-                class: 'SygeforMyCompanyBundle:Trainer'
+                class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Trainer'
                 excludeFromFormType: true
                 alias: 'formateur'
                 emailPath: 'email'
@@ -163,8 +155,8 @@ sygefor_core:
                     #personTrait
                     civilite: { property: title }
                     nomComplet: { property: fullName }
-                    nom: { property: firstName }
-                    prenom: { property: lastName }
+                    nom: { property: lastName }
+                    prenom: { property: firstName }
                     # CoordinatesTrait
                     adresse: { property: address }
                     codePostal: { property: zip }
@@ -179,16 +171,14 @@ sygefor_core:
                     # other fields
                     sessions: { property: sessions }
             session:
-                class: 'SygeforMyCompanyBundle:Session'
+                class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Session'
                 alias: 'session'
                 fields:
                     # AbstractSession
                     nom: { property: "name" }
                     dateDebut: { property: "dateBegin", type: "date" }
                     dateFin: { property: "dateEnd", type: "date" }
-                    date: { property: "dateRange", type: "string" }
-                    datePrecisions: { property: "datePrecisions" }
-                    heurePrecisions: { property: "hourPrecisions" }
+                    dates: { property: "dates" }
                     formation: { property: "training" }
                     formateurs: { property: "trainersListString" }
                     listeFormateurs: { property: "trainers" }
@@ -196,22 +186,20 @@ sygefor_core:
                     nombrePlaces: { property: "maximumNumberOfRegistrations" }
                     nombreInscrits: { property: "numberOfRegistrations" }
                     dateLimiteInscription: { property: "limitRegistrationDate" }
-                    datePrecisions: { property: "limitRegistrationDate" }
                     nombreHeures: { property: "hourNumber" }
                     nombreJours: { property: "dayNumber" }
                     horaires: { property: "schedule" }
                     participantsMax: { property: "maximumNumberOfRegistrations" }
                     lieu: { property: "place.name" }
+                    adresse: { property: "place.fullAddress" }
                     programme: { property: "training.program" }
-                    commentaires: { property: "comments" }
                     #nombrePresents: { property: "numberOfPresentPeople" }
                     inscriptions: { property: "inscriptions" }
-                    dates: { property: "dates" }
                     url: { property: "frontUrl" }
                     # Session
                     tarif: { property: "price" }
             training:
-                class: 'SygeforTrainingBundle:Training\AbstractTraining'
+                class: 'Sygefor\Bundle\TrainingBundle\Entity\Training\AbstractTraining'
                 excludeFromFormType: true
                 alias: 'formation'
                 fields:
@@ -237,13 +225,13 @@ sygefor_core:
                     # Meeting
                     nationale: { property: national }
             internship:
-                class: 'SygeforMyCompanyBundle:Internship'
+                class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Internship'
                 parent: training
             long_training:
-                class: 'SygeforMyCompanyBundle:LongTraining'
+                class: 'Sygefor\Bundle\MyCompanyBundle\Entity\LongTraining'
                 parent: training
             meeting:
-                class: 'SygeforMyCompanyBundle:Meeting'
+                class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Meeting'
                 parent: training
             semestered_training:
                 class: 'Sygefor\Bundle\CoreBundle\Model\SemesteredTraining'
@@ -258,6 +246,16 @@ sygefor_core:
                     nombreSessions: { property: 'sessionsCount' }
                     prochaineSession: { property: 'nextSession.dateBegin', type:'date', format: 'd/m/Y' }
                     derniereSession: { property: 'lastSession.dateBegin', type:'date', format: 'd/m/Y' }
+            date:
+                class: 'SygeforMyCompanyBundle:DateSession'
+                alias: 'date'
+                excludeFromFormType: true
+                fields:
+                    dateDebut: { property: dateBegin }
+                    dateFin: { property: dateEnd }
+                    horairesMatin: { property: scheduleMorn }
+                    horairesAprem: { property: scheduleAfter }
+                    lieu: { property: place }
             module:
                 class: 'SygeforMyCompanyBundle:Module'
                 alias: 'module'
@@ -268,7 +266,7 @@ sygefor_core:
                     sessions: { property: sessions }
         pdf:
             training:
-                class: 'SygeforTrainingBundle:Training\Training'
+                class: 'SygeforTrainingBundle:Training\AbstractTraining'
                 template: 'SygeforMyCompanyBundle:Training:pdf.html.twig'
                 templateDiscriminator: 'type'
                 templates:
@@ -278,8 +276,8 @@ sygefor_core:
 
             inscription.attestation:
                 class: 'SygeforMyCompanyBundle:Inscription'
-#                template: 'SygeforTraineeBundle:Inscription:attestation.pdf.twig'
-                template: 'SygeforInscriptionBundle:Inscription:attestation.pdf.twig'
+                template: 'SygeforMyCompanyBundle:Inscription:attestation.pdf.twig'
                 key: inscription
                 filename: "attestation.pdf"
+
 

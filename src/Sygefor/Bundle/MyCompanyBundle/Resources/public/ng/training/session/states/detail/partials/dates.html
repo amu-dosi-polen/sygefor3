@@ -12,7 +12,8 @@
             <tr>
                 <th>Date début</th>
                 <th>Date fin</th>
-                <th>Horaires</th>
+                <th>Horaires matin</th>
+                <th>Horaires après-midi</th>
                 <th>Nombres d'heures</th>
                 <th>Lieu</th>
                 <th>Modifier</th>
@@ -24,7 +25,8 @@
                 <!--form sf-xeditable-form="form" sf-href='dates.edit({dates: date })' on-success="onSuccess(data)"-->
                     <td>{{ date.dateBegin|date: 'dd/MM/yyyy' }}</td>
                     <td>{{ date.dateEnd|date: 'dd/MM/yyyy' }}</td>
-                    <td>{{ date.schedule }}</td>
+                    <td>{{ date.scheduleMorn }}</td>
+                    <td>{{ date.scheduleAfter }}</td>
                     <td>{{ date.hourNumber }}</td>
                     <td>{{ date.place }}</td>
                     <td><a class="btn btn-fa" href="" ng-click="editDates(date)" tooltip="Modifier"><span class="fa fa-pencil"></span></a></td>
