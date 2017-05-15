@@ -139,7 +139,7 @@ sygefor_core:
                     email: { property: email }
                     telephone: { property: phoneNumber }
                     # ProfessionalSituationTrait
-                    unite: { property: institution }
+                    institution: { property: institution }
                     service: { property: service }
                     public: { property: publicType.name }
                     statut: { property: status }
@@ -249,13 +249,18 @@ sygefor_core:
             date:
                 class: 'SygeforMyCompanyBundle:DateSession'
                 alias: 'date'
-                excludeFromFormType: true
                 fields:
                     dateDebut: { property: dateBegin }
                     dateFin: { property: dateEnd }
                     horairesMatin: { property: scheduleMorn }
                     horairesAprem: { property: scheduleAfter }
                     lieu: { property: place }
+            institution:
+                class: 'SygeforMyCompanyBundle:Institution'
+                alias: 'institution'
+                excludeFromFormType: true
+                fields:
+                    nom: { property: name }
             module:
                 class: 'SygeforMyCompanyBundle:Module'
                 alias: 'module'
