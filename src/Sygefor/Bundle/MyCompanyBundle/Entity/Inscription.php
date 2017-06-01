@@ -29,7 +29,7 @@ class Inscription extends AbstractInscription
     /**
      * @var ArrayCollection
      * @ORM\OneToMany(targetEntity="Sygefor\Bundle\MyCompanyBundle\Entity\EvaluationNotedCriterion", mappedBy="inscription", cascade={"persist", "merge", "remove"})
-     * @Serializer\Groups({"training", "inscription", "api.attendance"})
+     * @Serializer\Groups({"training", "inscription", "api.attendance", "session"})
      */
     protected $criteria;
 

@@ -242,6 +242,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
         }
     });
 
+    
     /**
      * WIDGETS
      */

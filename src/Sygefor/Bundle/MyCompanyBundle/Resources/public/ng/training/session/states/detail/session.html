@@ -57,6 +57,7 @@
             <ul class="nav nav-tabs">
                 <li ng-click="tab = 'inscriptions'" class="active"><a href="" data-toggle="tab"><span class="fa fa-graduation-cap"></span> {{ session.registration > 0 ? 'Inscriptions (' + session.inscriptions.length + ')' : 'Participants (' + getTotal() + ')' }}</a></li>
                 <li ng-click="tab = 'messages'"><a href="" data-toggle="tab"><span class="fa fa-send"></span> Messages ({{ session.messages.length ? session.messages.length : 0 }})</a></li>
+                <li ng-click="tab = 'evals'"><a href="" data-toggle="tab"><span class="fa fa-smile-o"></span> Evaluations </a></li>
             </ul>
 
             <!--
@@ -83,6 +84,18 @@
                     </div>
                 </div>
             </div>
+
+            <!--
+             Evaluations
+            -->
+            <div ng-show="tab === 'evals'">
+                <div class="row mb-1">
+                    <div class="col-lg-12">
+                        <div ng-include src="'mycompanybundle/training/session/states/detail/partials/evals.html'" ng-controller="EvalComputeController"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
 

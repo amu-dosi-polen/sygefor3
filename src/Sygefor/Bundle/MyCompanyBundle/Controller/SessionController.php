@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Participation;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Session;
 use Sygefor\Bundle\MyCompanyBundle\Entity\DateSession;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
 use Sygefor\Bundle\MyCompanyBundle\Form\DateSessionType;
 use Sygefor\Bundle\TrainingBundle\Controller\AbstractSessionController;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -15,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Route("/training/session")
@@ -123,4 +125,5 @@ class SessionController extends AbstractSessionController
 
         return array('form' => $form->createView(), 'dates' => $dates);
     }
+
 }

@@ -89,6 +89,7 @@ sygeforApp.controller('SessionInscriptionsController', ['$scope', '$dialog', '$f
             recalculateStats();
         });
     }
+    
 
     /**
      * Get the total accepted inscriptions count
