@@ -19,5 +19,8 @@
             <a ng-if="!session._accessRights.edit" ui-sref="trainer.detail.view({session: participation.session.id, id: participation.trainer.id})">{{ participation.trainer.fullName }}</a>
             {{$last ? '' : ', '}}
         </span>
+        <br>
+        <br>
+        <a ng-if="session._accessRights.edit" class="btn btn-xs btn-default" href="" ng-click="sendConvo()"><span class="fa fa-envelope"></span> Envoyer les convocations</a>
     </div>
 </div>

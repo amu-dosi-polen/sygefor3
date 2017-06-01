@@ -11,7 +11,7 @@ sygeforApp.controller('SessionListController', ['$scope', '$state', '$injector',
      * @var {Array}
      */
      $scope.addOperations = [{
-        //templateUrl: 'mycompanybundle/training/session/modals/create.html',
+        //templateUrl: 'mycompanybundle/training/session/modals/add.html',
         label: 'Ajouter une session',
         execute: function (){
             $dialog.open('session.create',{training: training.id}).then(function(data) {
@@ -80,7 +80,15 @@ sygeforApp.controller('SessionListController', ['$scope', '$state', '$injector',
             }
         ]
 
-    }];
+    },
+        {
+            icon: 'fa-envelope-o',
+            label: 'Envoyer un Email',
+            execute: function (items, $dialog) {
+                return $dialog.open('batch.email', {items: items, targetClass: 'SygeforMyCompanyBundle:Session'})
+            }
+        },
+    ];
 
     /**
      * Facets

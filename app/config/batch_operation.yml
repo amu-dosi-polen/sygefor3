@@ -173,6 +173,7 @@ sygefor_core:
             session:
                 class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Session'
                 alias: 'session'
+                emailPath: 'trainer.email'
                 fields:
                     # AbstractSession
                     nom: { property: "name" }
@@ -193,8 +194,10 @@ sygefor_core:
                     lieu: { property: "place.name" }
                     adresse: { property: "place.fullAddress" }
                     programme: { property: "training.program" }
+                    commentaires: {property: "comments"}
                     #nombrePresents: { property: "numberOfPresentPeople" }
                     inscriptions: { property: "inscriptions" }
+                    participations: { property: "participations" }
                     url: { property: "frontUrl" }
                     # Session
                     tarif: { property: "price" }
@@ -224,6 +227,15 @@ sygefor_core:
                     modules: { property: modules }
                     # Meeting
                     nationale: { property: national }
+            participation:
+                class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Participation'
+                alias: 'participation'
+                emailPath: 'trainer.email'
+                fields:
+                    id: { property: id }
+                    formateur: { property: trainer}
+                    session: { property: session }
+                    dates: { property: session.dates }
             internship:
                 class: 'Sygefor\Bundle\MyCompanyBundle\Entity\Internship'
                 parent: training
