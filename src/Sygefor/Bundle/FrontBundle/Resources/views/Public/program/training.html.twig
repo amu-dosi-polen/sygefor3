@@ -104,7 +104,7 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            {% for date in upcomingSession.dates %}
+                                                            {% for date in (upcomingSession.dates) | orderBy('dateBegin') %}
                                                                 <tr >
                                                                     {% if date.dateEnd is defined and date.dateEnd is not null %}
                                                                         {%  if date.dateEnd != date.dateBegin %}
@@ -115,7 +115,20 @@
                                                                     {% else %}
                                                                         <td>{{ date.dateBegin | date('d/m/y') }} </td>
                                                                     {% endif %}
-                                                                    <td>{{ date.schedule }}</td>
+                                                                    {% if date.scheduleMorn is defined and date.scheduleMorn is not null %}
+                                                                        {% if date.scheduleAfter is defined and date.scheduleAfter is not null %}
+                                                                            <td>{{ date.scheduleMorn }}, {{ date.scheduleAfter }}</td>
+                                                                        {% else %}
+                                                                            <td>{{ date.scheduleMorn }}</td>
+                                                                        {% endif %}
+                                                                    {% else %}
+                                                                        {% if date.scheduleAfter is defined and date.scheduleAfter is not null %}
+                                                                            <td>{{ date.scheduleAfter }}</td>
+                                                                        {% else %}
+                                                                            <td></td>
+                                                                        {% endif %}
+                                                                    {% endif %}
+
                                                                     <td>{{ date.place }}</td>
                                                                 </tr>
                                                             {% endfor %}
