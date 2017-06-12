@@ -50,20 +50,12 @@ sygeforApp.directive('trainersBlock', [function() {
              * Send convocations to all trainers
              */
             $scope.sendConvo = function () {
-                var templates = $taxonomy.getIndexedTerms('sygefor_trainee.vocabulary_email_template');
-                var templateConvo = null;
-                for (var j=0; j < templates.length; j++) {
-                    if (templates[j].name == "Convocation formateur") {
-                        templateConvo = templates[j];
-                        break;
-                    }
-                }
                 var items = [];
                 for (var i=0; i < $scope.session.participations.length; i++) {
                     items.push($scope.session.participations[i].id);
                 }
 
-                $dialog.open('batch.email', {items: items, targetClass: 'SygeforMyCompanyBundle:Participation', subject: templateConvo.subject});
+                $dialog.open('batch.email', {items: items, targetClass: 'SygeforMyCompanyBundle:Participation'});
             };
 
         },

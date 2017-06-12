@@ -18,3 +18,14 @@ services:
 
     sygefor_mycompany.unity_provider:
         class: Sygefor\Bundle\MyCompanyBundle\Provider\UnityProvider
+
+    #batch operation
+    sygefor_mycompany.batch.send_convo:
+        class: Sygefor\Bundle\MyCompanyBundle\BatchOperations\SendConvoBatchOperation
+        arguments:
+            - "@doctrine.orm.entity_manager"
+        calls:
+            - [ setContainer, [ "@service_container" ] ]
+        tags:
+            - {name: sygefor_core.batch_operation_provider}
+

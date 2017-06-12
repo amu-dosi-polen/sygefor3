@@ -13,14 +13,16 @@
         <div class="well well-empty well-sm" ng-if="!session.participations.length">
             {{ emptyMsg }}
         </div>
-        <span ng-repeat="participation in session.participations">
-            <button ng-if="session._accessRights.edit" type="button" class="close close-inline" ng-click="removeTrainer(participation)"><span aria-hidden="true">&times;</span></button>
-            <a ng-if="session._accessRights.edit" href="" ui-sref="trainer.detail.view({session: participation.session.id, id: participation.trainer.id})"> <!-- ng-click="editParticipation(participation)" -->{{ participation.trainer.fullName }}</a>
-            <a ng-if="!session._accessRights.edit" ui-sref="trainer.detail.view({session: participation.session.id, id: participation.trainer.id})">{{ participation.trainer.fullName }}</a>
-            {{$last ? '' : ', '}}
-        </span>
-        <br>
-        <br>
-        <a ng-if="session._accessRights.edit" class="btn btn-xs btn-default" href="" ng-click="sendConvo()"><span class="fa fa-envelope"></span> Envoyer les convocations</a>
+        <div ng-if="session.participations.length">
+            <span ng-repeat="participation in session.participations">
+                <button ng-if="session._accessRights.edit" type="button" class="close close-inline" ng-click="removeTrainer(participation)"><span aria-hidden="true">&times;</span></button>
+                <a ng-if="session._accessRights.edit" href="" ui-sref="trainer.detail.view({session: participation.session.id, id: participation.trainer.id})"> <!-- ng-click="editParticipation(participation)" -->{{ participation.trainer.fullName }}</a>
+                <a ng-if="!session._accessRights.edit" ui-sref="trainer.detail.view({session: participation.session.id, id: participation.trainer.id})">{{ participation.trainer.fullName }}</a>
+                {{$last ? '' : ', '}}
+            </span>
+            <br>
+            <br>
+            <a ng-if="session._accessRights.edit" class="btn btn-xs btn-default" href="" ng-click="sendConvo()"><span class="fa fa-envelope"></span> Envoyer les convocations</a>
+        </div>
     </div>
 </div>
