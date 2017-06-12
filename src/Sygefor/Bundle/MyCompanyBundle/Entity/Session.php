@@ -91,6 +91,7 @@ class Session extends AbstractSession
     /**
      * @var ArrayCollection $dates
      * @ORM\OneToMany(targetEntity="Sygefor\Bundle\MyCompanyBundle\Entity\DateSession", mappedBy="session", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"dateBegin" = "ASC"})
      * @Serializer\Groups({"session", "api.session"})
      */
     protected $dates;

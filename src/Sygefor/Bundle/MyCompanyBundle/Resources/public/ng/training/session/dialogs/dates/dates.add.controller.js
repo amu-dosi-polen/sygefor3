@@ -25,6 +25,8 @@ sygeforApp.controller('DatesAddController', ['$scope', '$modalInstance', '$dialo
     $scope.onSuccess = function (data) {
         growl.addSuccessMessage("La date a bien été ajoutée à la session.");
         $scope.dialog.close(data);
+
+        $window.location.reload();
     };
 }]);
 
