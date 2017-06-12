@@ -223,7 +223,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
      * dates.remove : simple confirmation modal for dates remove
      */
     $dialogProvider.dialog('dates.remove', /* @ngInject */ {
-        templateUrl: 'mycompanybundle/training/session/dialogs/dates/dates-remove.html',
+        templateUrl: 'mycompanybundle/training/session/dialogs/dates/remove.html',
         controller: 'DatesRemoveController'
     });
 
@@ -242,7 +242,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
         }
     });
 
-    
+
     /**
      * WIDGETS
      */

@@ -8,7 +8,6 @@ sygeforApp.controller('DatesRemoveController', ['$scope', '$modalInstance', '$di
     $scope.onSuccess = function(data) {
         growl.addSuccessMessage("La date a bien été retirée de la session.");
         $scope.dialog.close(data);
-        $window.location.reload();
     };
 
     /**
@@ -19,8 +18,9 @@ sygeforApp.controller('DatesRemoveController', ['$scope', '$modalInstance', '$di
         $http({ method: 'POST', url: url}).success(function (data) {
             growl.addSuccessMessage("La date a bien été retirée de la session.");
             $scope.dialog.close(data);
-            $window.location.reload();
+            $scope.session.dates = $filter('filter')($scope.session.dates, {dates: dates});
         });
+        location.reload();
     };
 }]);
 

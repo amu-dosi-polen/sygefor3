@@ -26,8 +26,7 @@ sygeforApp.controller('DatesEditController', ['$scope', '$modalInstance', '$dial
     $scope.onSuccess = function (data) {
         growl.addSuccessMessage("La date a bien été mise à jour");
         $scope.dialog.close(data);
-
-        $window.location.reload();
+        location.reload();
     };
 
 }]);
