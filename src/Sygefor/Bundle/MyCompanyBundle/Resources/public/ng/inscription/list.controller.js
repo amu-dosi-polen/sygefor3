@@ -161,7 +161,7 @@ sygeforApp.controller('InscriptionListController', ['$scope', '$user', '$injecto
             size: 10
         },
         'trainee.institution.name.source' : {
-            label: 'Etablissement actuelle',
+            label: 'Etablissement actuel',
             size: 10
         },
         'publicType.source' : {
