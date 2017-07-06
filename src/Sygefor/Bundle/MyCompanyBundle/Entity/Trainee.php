@@ -9,6 +9,7 @@ use Sygefor\Bundle\TraineeBundle\Entity\AbstractTrainee;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as Serializer;
 use Sygefor\Bundle\TraineeBundle\Entity\DisciplinaryTrait;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -20,6 +21,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class Trainee extends AbstractTrainee implements UserInterface
 {
     use DisciplinaryTrait;
+
+    /**
+     * @ORM\Column(name="birth_date", type="datetime")
+     * @Assert\NotBlank(message="Vous devez préciser une date de naissance.")
+     * @Serializer\Groups({"Default", "trainee", "api"})
+     */
+    protected $birthDate;
 
     /**
      * @ORM\Column(name="first_name_sup", type="string", length=255)
@@ -70,6 +78,29 @@ class Trainee extends AbstractTrainee implements UserInterface
     static public function getFormType()
     {
         return TraineeType::class;
+    }
+
+    /**
+     * Set birth date
+     *
+     * @param mixed $birthDate
+     *
+     * @return Trainee
+     */
+    public function setBirthDate($birthDate)
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+    /**
+     * Get birth date
+     *
+     */
+    public function getBirthDate()
+    {
+        return $this->birthDate;
     }
 
     /**

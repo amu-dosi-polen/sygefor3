@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TraineeType extends BaseTraineeType
@@ -36,6 +37,12 @@ class TraineeType extends BaseTraineeType
                     return $er->createQueryBuilder('d')->where('d.parent IS NULL');
                 }))*/
 
+           ->add('birthDate', DateType::class, array(
+                'label' => 'Date de naissance (format jj/mm/aaaa)',
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'required' => true,
+            ))
            ->add('lastNameSup', null, array(
                'required' => true,
                'label'    => 'Nom',
