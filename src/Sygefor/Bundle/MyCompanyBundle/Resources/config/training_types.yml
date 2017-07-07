@@ -4,11 +4,4 @@ services:
         class: Sygefor\Bundle\MyCompanyBundle\Entity\Internship
         tags:
             - { name: sygefor_training.type }
-    sygefor_mycompany.type.long_training:
-        class: Sygefor\Bundle\MyCompanyBundle\Entity\LongTraining
-        tags:
-            - { name: sygefor_training.type }
-    sygefor_mycompany.type.meeting:
-        class: Sygefor\Bundle\MyCompanyBundle\Entity\Meeting
-        tags:
-            - { name: sygefor_training.type }
+    

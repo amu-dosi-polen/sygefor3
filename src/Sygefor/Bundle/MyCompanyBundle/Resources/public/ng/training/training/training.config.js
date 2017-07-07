@@ -233,24 +233,5 @@ sygeforApp.config(["$trainingBundleProvider", "$listStateProvider", "$dialogProv
         }
     });
 
-    // long training
-    $trainingBundleProvider.addType('long_training', {
-        label: 'Formation longue',
-        templates: {
-            view: 'mycompanybundle/training/training/states/detail/long_training.html',
-            create: 'mycompanybundle/training/training/dialogs/create/long_training.html',
-            duplicate: 'mycompanybundle/training/training/dialogs/duplicate/long_training.html'
-        }
-    });
 
-    // meeting
-    $trainingBundleProvider.addType('meeting', {
-        label: 'Rencontre scientifique',
-        templates: {
-            view: 'mycompanybundle/training/training/states/detail/meeting.html',
-            create: 'mycompanybundle/training/training/dialogs/create/meeting.html',
-            duplicate: 'mycompanybundle/training/training/dialogs/duplicate/meeting.html'
-        },
-        singleSession: true
-    });
 }]);
