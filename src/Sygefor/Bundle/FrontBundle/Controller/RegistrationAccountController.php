@@ -14,6 +14,8 @@ use Sygefor\Bundle\MyCompanyBundle\Entity\Inscription;
 use Symfony\Component\Config\Definition\Exception\ForbiddenOverwriteException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Sygefor\Bundle\FrontBundle\Form\AuthorizationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -157,6 +159,8 @@ class RegistrationAccountController extends AbstractRegistrationAccountControlle
         // Authentification et récup du mail retourné par Shibboleth
         $shibbolethAttributes = $this->get('security.token_storage')->getToken()->getAttributes();
         $supMail = $shibbolethAttributes['mail'];
+        // transforme le mail en minu
+        $supMail = strtolower($supMail);
         $supFirstName = $shibbolethAttributes['givenName'];
         $supLastName = $shibbolethAttributes['sn'];
 
@@ -168,10 +172,14 @@ class RegistrationAccountController extends AbstractRegistrationAccountControlle
         // Récupération des infos du stagiaire
         $nameTrainee = $registration->getTrainee()->getFullName();
         $supMailTrainee = $registration->getTrainee()->getEmailSup();
+        // transforme le mail en minu
+        $supMailTrainee = strtolower($supMailTrainee);
 
         // Création du formulaire d'autorisation
+        // Ajout du champ motif de refus
         $defaultData = array();
-        $form = $this->createFormBuilder($defaultData)
+        $form = $this->createForm(AuthorizationType::class, $defaultData);
+/*        $form = $this->createFormBuilder($defaultData)
             ->add('validation', ChoiceType::class, array(
                 'choices' => array('ok' => 'Favorable', 'nok' => 'Défavorable'),
                 'expanded' => true,
@@ -179,7 +187,10 @@ class RegistrationAccountController extends AbstractRegistrationAccountControlle
                 'data' => 'ok',
                 'label' => "Avis"
             ))
-            ->getForm();
+            ->add('refuse', TextareaType::class, array(
+                'label' => 'Motif de refus',
+                'attr' => array('placeholder' => 'Expliquez les raisons pour lesquelles vous émettez un avis défavorable à cette demande de formation.')))
+            ->getForm();*/
         $form->handleRequest($request);
 
         // Si la personne authentifiée est bien le supérieur hiérarchique
