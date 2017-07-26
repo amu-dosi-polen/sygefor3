@@ -58,25 +58,36 @@
             </div>
         </div>
 
+        <form sf-xeditable-form="form" sf-href='inscription.viewpres({id: inscription.id})' on-success="onSuccess(data)">
+            <div class="row mb-1">
+                <div class="col-lg-12">
+
+                        <h3>Informations relatives à l'inscription</h3>
+                        <hr>
+                        <ul class="summary">
+                            <li><label>Tarif</label> {{ inscription.price ? inscription.price : 0 }} &euro;</li>
+                            <li><label>Typologie</label> <span sf-xeditable="form.children.typology">{{ inscription.typology.name }}</span></li>
+                            <li><label>Motivation</label> <span sf-xeditable="form.children.motivation" data-type="textarea">{{ inscription.motivation }}</span></li>
+                            <li><label>Type d'action de formation</label> <span sf-xeditable="form.children.actiontype" data-type="select">{{ inscription.actiontype.name }}</span></li>
+                        </ul>
+
+
+                </div>
+            </div>
+        </form>
+
+
         <div class="row mb-1">
             <div class="col-lg-12">
-                <form sf-xeditable-form="form" sf-href='inscription.view({id: inscription.id})' on-success="onSuccess(data)">
-                    <h3>Informations relatives à l'inscription</h3>
-                    <hr>
-                    <ul class="summary">
-                        <li><label>Tarif</label> {{ inscription.price ? inscription.price : 0 }} &euro;</li>
-                        <li><label>Typologie</label> <span sf-xeditable="form.children.typology">{{ inscription.typology.name }}</span></li>
-                        <li><label>Motivation</label> <span sf-xeditable="form.children.motivation" data-type="textarea">{{ inscription.motivation }}</span></li>
-                        <li><label>Type d'action de formation</label> <span sf-xeditable="form.children.actiontype" data-type="select">{{ inscription.actiontype.name }}</span></li>
-                    </ul>
-                </form>
-
+                <h3>Tableau de présence</h3><hr>
+                <!-- Présences -->
+                <div ng-include src="'mycompanybundle/inscription/states/detail/partials/presences.html'" ng-controller="PresencesViewController"></div>
             </div>
         </div>
 
         <div class="row mb-1">
             <div class="col-lg-12">
-                <h3>Evaluation de la session</h3>
+                <h3>Evaluation de la session</h3><hr>
 
                 <div ng-if="!inscription.criteria.length" class="well well-empty well-sm">
                     Il n'y a pas d'évaluation remplie pour cette session.

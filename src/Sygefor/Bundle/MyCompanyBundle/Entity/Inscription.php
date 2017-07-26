@@ -46,6 +46,28 @@ class Inscription extends AbstractInscription
      */
     protected $actiontype;
 
+    /**
+     * @var String
+     * @ORM\Column(name="refuse", type="text", nullable=true)
+     * @Serializer\Groups({"Default", "api"})
+     */
+    protected $refuse;
+
+    /**
+     * @var ArrayCollection $presences
+     * @ORM\OneToMany(targetEntity="Sygefor\Bundle\MyCompanyBundle\Entity\Presence", mappedBy="inscription", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"dateBegin" = "ASC"})
+     * @Serializer\Groups({"training", "inscription", "api.attendance", "session"})
+     */
+    protected $presences;
+
+    /**
+     * @var Boolean
+     * @ORM\Column(name="flag_presence", type="boolean", options={"default":false})
+     * @Serializer\Groups({"training", "inscription", "api.attendance", "session"})
+     */
+    protected $flagPresence;
+
 
     /**
      *
@@ -53,6 +75,7 @@ class Inscription extends AbstractInscription
     function __construct()
     {
         $this->criteria = new ArrayCollection();
+        $this->presences = new ArrayCollection();
     }
 
     /**
@@ -78,6 +101,22 @@ class Inscription extends AbstractInscription
     public function setMotivation($motivation)
     {
         $this->motivation = $motivation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRefuse()
+    {
+        return $this->refuse;
+    }
+
+    /**
+     * @param mixed refuse
+     */
+    public function setRefuse($refuse)
+    {
+        $this->refuse = $refuse;
     }
 
     /**
@@ -129,6 +168,38 @@ class Inscription extends AbstractInscription
     }
 
     /**
+     * @return mixed
+     */
+    public function getPresences()
+    {
+        return $this->presences;
+    }
+
+    /**
+     * @param mixed presences
+     */
+    public function setPresences($presences)
+    {
+        $this->presences = $presences;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFlagPresence()
+    {
+        return $this->flagPresence;
+    }
+
+    /**
+     * @param mixed $flagPresence
+     */
+    public function setFlagPresence($flagPresence)
+    {
+        $this->flagPresence = $flagPresence;
+    }
+
+    /**
      * Add a noted criterion
      * @param EvaluationNotedCriterion $criterion
      */
@@ -136,6 +207,16 @@ class Inscription extends AbstractInscription
     {
         $this->criteria->add($criterion);
     }
+
+    /**
+     * Add a presence
+     * @param Presence $presence
+     */
+    public function addPresence(Presence $presence)
+    {
+        $this->presences->add($presence);
+    }
+
 
     static public function getFormType()
     {

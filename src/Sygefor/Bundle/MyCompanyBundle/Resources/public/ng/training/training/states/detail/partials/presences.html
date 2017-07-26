@@ -1,0 +1,34 @@
+<div>
+    <div class="mb-1">
+        <a class="btn btn-xs btn-default" href="" ng-click="modifyPresences()"><span class="fa fa-plus"></span> Modifier le tableau des présences</a>
+        <br><br>
+
+        <div ng-if="!inscription.presences.length" class="well well-empty well-sm">
+            Il n'y a aucune présence saisie pour cette inscription.
+        </div>
+
+        <table ng-if="inscription.presences.length" class="table table-hover table-search table-condensed">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Matin</th>
+                <th>Après-midi</th>
+                <th>Modifier</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="presence in inscription.presences">
+                <td> {{ presence.dateBegin | date: 'dd/MM/yyyy' }}</td>
+                <td> {{ presence.morning }} </td>
+                <td> {{ presence.afternoon }} </td>
+                <td><a class="btn btn-fa" href="" ng-click="editDates(date)" tooltip="Modifier"><span class="fa fa-pencil"></span></a></td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

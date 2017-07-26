@@ -30,7 +30,6 @@ class SessionController extends AbstractSessionController
 
     /**
      * @Route("/adddates/{session}", name="dates.add", requirements={"id" = "\d+"}, options={"expose"=true}, defaults={"_format" = "json"})
-     * @SecureParam(name="session", permissions="EDIT")
      * @ParamConverter("session", class="SygeforMyCompanyBundle:Session", options={"id" = "session"})
      * @Rest\View(serializerGroups={"Default", "session"}, serializerEnableMaxDepthChecks=true)
      */
@@ -120,7 +119,6 @@ class SessionController extends AbstractSessionController
         /**
      * @Route("/{session}/remove/{dates}", name="dates.remove", options={"expose"=true}, defaults={"_format" = "json"})
      * @Method("POST")
-     * @SecureParam(name="session", permissions="EDIT")
      * @ParamConverter("session", class="SygeforMyCompanyBundle:Session", options={"id" = "session"})
      * @ParamConverter("dates", class="SygeforMyCompanyBundle:DateSession", options={"id" = "dates"})
      * @Rest\View(serializerGroups={"Default", "session"}, serializerEnableMaxDepthChecks=true)

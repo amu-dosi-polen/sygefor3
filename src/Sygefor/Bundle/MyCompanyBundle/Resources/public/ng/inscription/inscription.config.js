@@ -94,7 +94,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
                         controller: 'InscriptionDetailViewController',
                         resolve: {
                             data: function($http, $stateParams) {
-                                var url = Routing.generate('inscription.view', {id: $stateParams.id});
+                                var url = Routing.generate('inscription.viewpres', {id: $stateParams.id});
                                 return $http({method: 'GET', url: url}).then (function (data) { return data.data; });
                             }
                         },
@@ -112,7 +112,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
      */
     $dialogProvider.dialog('inscription.create', /* @ngInject */ {
         controller: 'InscriptionCreate',
-        templateUrl: "mycompanybundle/inscription/dialogs/create.html",
+        templateUrl: "mycompanybundle/inscription/dialogs/add.html",
         resolve:{
             form: function ($http, $dialogParams){
                 return $http.get(Routing.generate('inscription.create', {session: $dialogParams.session.id })).then(function (response) {
@@ -149,7 +149,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
         templateUrl: 'mycompanybundle/inscription/dialogs/delete.html',
         resolve:{
             data: function ($http, $dialogParams) {
-                var url = Routing.generate('inscription.view', {id: $dialogParams.id});
+                var url = Routing.generate('inscription.viewpres', {id: $dialogParams.id});
                 return $http.get(url).then(function (response) {
                     return response.data;
                 });
@@ -193,6 +193,21 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
                 growl.addSuccessMessage("La session a bien été dupliquée. Vous êtes à présent sur la fiche de la nouvelle session.");
                 $scope.dialog.close(response.session);
             };
+        }
+    });
+
+    /**
+     * presence.edit
+     */
+    $dialogProvider.dialog('presence.edit', /* @ngInject */ {
+        templateUrl: 'mycompanybundle/inscription/dialogs/presences/edit.html',
+        controller: 'PresenceEditController',
+        resolve:{
+            data: function ($http, $dialogParams){
+                return $http.get(Routing.generate('presence.edit', {'presence': $dialogParams.presence.id})).then(function (response) {
+                    return response.data;
+                });
+            }
         }
     });
 

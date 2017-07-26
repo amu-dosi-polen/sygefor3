@@ -9,6 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Sygefor\Bundle\InscriptionBundle\Form\BaseInscriptionType;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Term\ActionType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Sygefor\Bundle\MyCompanyBundle\Form\PresenceType;
 
 /**
  * Class InscriptionType.
@@ -30,6 +32,7 @@ class InscriptionType extends BaseInscriptionType
             'label' => 'Type de formation',
             'class' => ActionType::class
             ));
+
 
         parent::buildForm($builder, $options);
     }

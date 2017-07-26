@@ -55,6 +55,7 @@ sygeforApp.directive('trainersBlock', [function() {
                     items.push($scope.session.participations[i].id);
                 }
 
+
                 $dialog.open('batch.email', {items: items, targetClass: 'SygeforMyCompanyBundle:Participation'});
             };
 
