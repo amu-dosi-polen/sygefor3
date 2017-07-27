@@ -94,7 +94,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
                         controller: 'InscriptionDetailViewController',
                         resolve: {
                             data: function($http, $stateParams) {
-                                var url = Routing.generate('inscription.viewpres', {id: $stateParams.id});
+                                var url = Routing.generate('inscription.view', {id: $stateParams.id});
                                 return $http({method: 'GET', url: url}).then (function (data) { return data.data; });
                             }
                         },
@@ -149,7 +149,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
         templateUrl: 'mycompanybundle/inscription/dialogs/delete.html',
         resolve:{
             data: function ($http, $dialogParams) {
-                var url = Routing.generate('inscription.viewpres', {id: $dialogParams.id});
+                var url = Routing.generate('inscription.view', {id: $dialogParams.id});
                 return $http.get(url).then(function (response) {
                     return response.data;
                 });
