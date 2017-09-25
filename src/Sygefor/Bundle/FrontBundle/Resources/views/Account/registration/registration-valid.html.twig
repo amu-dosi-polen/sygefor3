@@ -30,6 +30,8 @@
                 {{ registration.session.dateRange | replace('le' , '') }}
               </blockquote>
 
+              <p><b>Motivation pour participer à la formation :</b> {{ registration.motivation }} </p>
+
               {{ form_start(form) }}
               <span onclick="afficher()"> {{ form_row(form.children.validation) }} </span>
               <div id="refuse" style="display: none"> {{ form_row(form.children.refuse) }}</div>
