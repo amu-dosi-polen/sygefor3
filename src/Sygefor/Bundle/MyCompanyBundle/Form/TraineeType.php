@@ -91,37 +91,39 @@ class TraineeType extends BaseTraineeType
             $this->addInstitutionField($event->getForm(), $event->getData()->getOrganization());
             $this->addDisciplinaryField($event->getForm(), $event->getData()->getDisciplinaryDomain());
             $user = $event->getData();//recuperation de l'objet sur lequel le formulaire se base
-            if ($user->getPublicType()->getId() == 1) { // Cas des biatss (employee) -> responsable hiérarchique obligatoire
-                $event->getForm()
-                    ->add('lastNameSup', null, array(
-                    'required' => true,
-                    'label'    => 'Nom',
-                    ))
-                    ->add('firstNameSup', null, array(
-                    'required' => true,
-                    'label'    => 'Prénom',
-                     ))
-                    ->add('emailSup', null, array(
-                        'required' => true,
-                        'label'    => 'Email',
-                    ));
+            // Si le stagaire est prÃ©-rempli
+            if ($user->getLastName()!=null) {
+                if ($user->getPublicType()->getId() == 1) { // Cas des biatss (employee) -> responsable hiÃ©rarchique obligatoire
+                    $event->getForm()
+                        ->add('lastNameSup', null, array(
+                            'required' => true,
+                            'label' => 'Nom',
+                        ))
+                        ->add('firstNameSup', null, array(
+                            'required' => true,
+                            'label' => 'PrÃ©nom',
+                        ))
+                        ->add('emailSup', null, array(
+                            'required' => true,
+                            'label' => 'Email',
+                        ));
+                } else { // Autres cas : saisie du responsable non obligatoire
+                    $event->getForm()
+                        ->add('lastNameSup', null, array(
+                            'required' => false,
+                            'label' => 'Nom',
+                        ))
+                        ->add('firstNameSup', null, array(
+                            'required' => false,
+                            'label' => 'PrÃ©nom',
+                        ))
+                        ->add('emailSup', null, array(
+                            'required' => false,
+                            'label' => 'Email',
+                        ));
+                }
             }
-            else {
-                // Autres cas : saisie du responsable non obligatoire
-                $event->getForm()
-                    ->add('lastNameSup', null, array(
-                        'required' => false,
-                        'label'    => 'Nom',
-                    ))
-                    ->add('firstNameSup', null, array(
-                        'required' => false,
-                        'label'    => 'Prénom',
-                    ))
-                    ->add('emailSup', null, array(
-                        'required' => false,
-                        'label'    => 'Email',
-                    ));
-            }
+
         });
 
         // POST_SUBMIT for each field
