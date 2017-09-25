@@ -112,7 +112,7 @@ sygeforApp.config(["$listStateProvider", "$dialogProvider", "$widgetProvider", f
      */
     $dialogProvider.dialog('inscription.create', /* @ngInject */ {
         controller: 'InscriptionCreate',
-        templateUrl: "mycompanybundle/inscription/dialogs/add.html",
+        templateUrl: "mycompanybundle/inscription/dialogs/create.html",
         resolve:{
             form: function ($http, $dialogParams){
                 return $http.get(Routing.generate('inscription.create', {session: $dialogParams.session.id })).then(function (response) {
