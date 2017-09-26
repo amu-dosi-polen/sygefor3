@@ -69,6 +69,7 @@
                             <li><label>Typologie</label> <span sf-xeditable="form.children.typology">{{ inscription.typology.name }}</span></li>
                             <li><label>Motivation</label> <span sf-xeditable="form.children.motivation" data-type="textarea">{{ inscription.motivation }}</span></li>
                             <li><label>Type d'action de formation</label> <span sf-xeditable="form.children.actiontype" data-type="select">{{ inscription.actiontype.name }}</span></li>
+                            <li><label>Compte personnel de formation</label> {{ inscription.dif ? 'Oui' : 'Non'}}</li>
                         </ul>
 
 

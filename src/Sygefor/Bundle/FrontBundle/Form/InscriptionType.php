@@ -45,6 +45,9 @@ class InscriptionType extends AbstractType
                 'label' => 'Type de formation',
                 'class' => ActionType::class
             ))
+            ->add('dif', CheckboxType::class, array(
+                'label' => 'Compte personnel de formation',
+            ))
             ->add('authorization', CheckboxType::class, array(
                 'label' => 'Envoyer une demande d\'autorisation à mon supérieur hiérarchique',
                 'mapped' => false,

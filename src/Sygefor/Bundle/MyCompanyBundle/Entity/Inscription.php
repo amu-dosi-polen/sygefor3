@@ -63,10 +63,10 @@ class Inscription extends AbstractInscription
 
     /**
      * @var Boolean
-     * @ORM\Column(name="flag_presence", type="boolean", options={"default":false})
+     * @ORM\Column(name="dif", type="boolean", options={"default":false})
      * @Serializer\Groups({"training", "inscription", "api.attendance", "session"})
      */
-    protected $flagPresence;
+    protected $dif;
 
 
     /**
@@ -186,17 +186,17 @@ class Inscription extends AbstractInscription
     /**
      * @return mixed
      */
-    public function getFlagPresence()
+    public function getDif()
     {
-        return $this->flagPresence;
+        return $this->dif;
     }
 
     /**
-     * @param mixed $flagPresence
+     * @param mixed $dif
      */
-    public function setFlagPresence($flagPresence)
+    public function setDif($dif)
     {
-        $this->flagPresence = $flagPresence;
+        $this->dif = $dif;
     }
 
     /**
