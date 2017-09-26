@@ -55,7 +55,7 @@ class SessionController extends AbstractSessionController
                     }
                     $datesBegin[] = $existingDate->getDateBegin();
                     $datesEnd[] = $existingDate->getDateEnd();
-                    $hoursSum += $existingDate->getHourNumber();
+                    $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
                     if (($existingDate->getDateBegin() == $existingDate->getDateEnd()) || ($existingDate->getDateEnd() == null)) {
                         $daysSum++;
                     }
@@ -75,7 +75,7 @@ class SessionController extends AbstractSessionController
                     $datesEnd[] = $dateSession->getDateEnd();
 
                     // Calcul nombre d'heures
-                    $hoursSum += $dateSession->getHourNumber();
+                    $hoursSum += ($dateSession->getHourNumberMorn() + $dateSession->getHourNumberAfter());
 
                     // Calcul nombre de jours
                     if (($dateSession->getDateBegin() == $dateSession->getDateEnd()) || ($dateSession->getDateEnd() == null)) {
@@ -141,7 +141,7 @@ class SessionController extends AbstractSessionController
         foreach ($session->getDates() as $existingDate) {
             $datesBegin[] = $existingDate->getDateBegin();
             $datesEnd[] = $existingDate->getDateEnd();
-            $hoursSum += $existingDate->getHourNumber();
+            $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
             if (($existingDate->getDateBegin() == $existingDate->getDateEnd()) || ($existingDate->getDateEnd() == null)) {
                 $daysSum++;
             }
@@ -200,7 +200,7 @@ class SessionController extends AbstractSessionController
                     $datesBegin[] = $existingDate->getDateBegin();
                     $datesEnd[] = $existingDate->getDateEnd();
 
-                    $hoursSum += $existingDate->getHourNumber();
+                    $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
                     if (($existingDate->getDateBegin() == $existingDate->getDateEnd()) || ($existingDate->getDateEnd() == null)) {
                         $daysSum++;
                     }

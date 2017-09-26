@@ -60,7 +60,13 @@ class DateSession
      * @ORM\Column(type="decimal", scale=2, nullable=true)
      * @var String
      */
-    protected $hourNumber;
+    protected $hourNumberMorn;
+
+    /**
+     * @ORM\Column(type="decimal", scale=2, nullable=true)
+     * @var String
+     */
+    protected $hourNumberAfter;
 
     /**
      * @ORM\Column(name="place", type="string", length=512, nullable=true)
@@ -137,17 +143,17 @@ class DateSession
     /**
      * @return mixed
      */
-    public function getHourNumber()
+    public function getHourNumberMorn()
     {
-        return $this->hourNumber;
+        return $this->hourNumberMorn;
     }
 
     /**
-     * @param mixed $hournumber
+     * @param mixed $hournumbermorn
      */
-    public function setHourNumber($hournumber)
+    public function setHourNumberMorn($hournumbermorn)
     {
-        $this->hourNumber = $hournumber;
+        $this->hourNumberMorn = $hournumbermorn;
     }
 
     /**
@@ -180,6 +186,22 @@ class DateSession
     public function setScheduleAfter($scheduleAfter)
     {
         $this->scheduleAfter = $scheduleAfter;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHourNumberAfter()
+    {
+        return $this->hourNumberAfter;
+    }
+
+    /**
+     * @param mixed $hournumberafter
+     */
+    public function setHourNumberAfter($hournumberafter)
+    {
+        $this->hourNumberAfter = $hournumberafter;
     }
 
     /**
