@@ -55,12 +55,14 @@ class SessionController extends AbstractSessionController
                     }
                     $datesBegin[] = $existingDate->getDateBegin();
                     $datesEnd[] = $existingDate->getDateEnd();
-                    $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
+
                     if (($existingDate->getDateBegin() == $existingDate->getDateEnd()) || ($existingDate->getDateEnd() == null)) {
                         $daysSum++;
+                        $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
                     }
                     else {
                         $daysSum += $existingDate->getDateBegin()->diff($existingDate->getDateEnd())->format('%a') + 1;
+                        $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter()) * ($existingDate->getDateBegin()->diff($existingDate->getDateEnd())->format('%a') + 1);
                     }
                 }
 
@@ -74,15 +76,14 @@ class SessionController extends AbstractSessionController
                     $datesBegin[] = $dateSession->getDateBegin();
                     $datesEnd[] = $dateSession->getDateEnd();
 
-                    // Calcul nombre d'heures
-                    $hoursSum += ($dateSession->getHourNumberMorn() + $dateSession->getHourNumberAfter());
-
                     // Calcul nombre de jours
                     if (($dateSession->getDateBegin() == $dateSession->getDateEnd()) || ($dateSession->getDateEnd() == null)) {
                         $daysSum++;
+                        $hoursSum += ($dateSession->getHourNumberMorn() + $dateSession->getHourNumberAfter());
                     }
                     else {
                         $daysSum += $dateSession->getDateBegin()->diff($dateSession->getDateEnd())->format('%a') + 1;
+                        $hoursSum += ($dateSession->getHourNumberMorn() + $dateSession->getHourNumberAfter()) * ($dateSession->getDateBegin()->diff($dateSession->getDateEnd())->format('%a') + 1);
                     }
                 }
 
@@ -141,12 +142,14 @@ class SessionController extends AbstractSessionController
         foreach ($session->getDates() as $existingDate) {
             $datesBegin[] = $existingDate->getDateBegin();
             $datesEnd[] = $existingDate->getDateEnd();
-            $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
+
             if (($existingDate->getDateBegin() == $existingDate->getDateEnd()) || ($existingDate->getDateEnd() == null)) {
                 $daysSum++;
+                $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
             }
             else {
                 $daysSum += $existingDate->getDateBegin()->diff($existingDate->getDateEnd())->format('%a') + 1;
+                $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter()) * ($existingDate->getDateBegin()->diff($existingDate->getDateEnd())->format('%a') + 1);
             }
         }
         // Tri des tableaux de dates
@@ -200,13 +203,15 @@ class SessionController extends AbstractSessionController
                     $datesBegin[] = $existingDate->getDateBegin();
                     $datesEnd[] = $existingDate->getDateEnd();
 
-                    $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
                     if (($existingDate->getDateBegin() == $existingDate->getDateEnd()) || ($existingDate->getDateEnd() == null)) {
                         $daysSum++;
+                        $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter());
                     }
                     else {
                         $daysSum += $existingDate->getDateBegin()->diff($existingDate->getDateEnd())->format('%a') + 1;
+                        $hoursSum += ($existingDate->getHourNumberMorn() + $existingDate->getHourNumberAfter()) * ($existingDate->getDateBegin()->diff($existingDate->getDateEnd())->format('%a') + 1);
                     }
+
                 }
 
                 // Tri des tableaux de dates
