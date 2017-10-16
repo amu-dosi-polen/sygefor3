@@ -30,6 +30,24 @@ class Trainee extends AbstractTrainee implements UserInterface
     protected $birthDate;
 
     /**
+     * @ORM\Column(name="amu_statut", type="string", length=255)
+     * @Serializer\Groups({"Default", "trainee", "api"})
+     */
+    protected $amuStatut;
+
+    /**
+     * @ORM\Column(name="corps", type="string", length=255)
+     * @Serializer\Groups({"Default", "trainee", "api"})
+     */
+    protected $corps;
+
+    /**
+     * @ORM\Column(name="category", type="string", length=255)
+     * @Serializer\Groups({"Default", "trainee", "api"})
+     */
+    protected $category;
+
+    /**
      * @ORM\Column(name="first_name_sup", type="string", length=255)
      * @Serializer\Groups({"Default", "trainee", "api"})
      */
@@ -71,7 +89,6 @@ class Trainee extends AbstractTrainee implements UserInterface
      */
     protected $fonction;
 
-
     /**
      * @return mixed
      */
@@ -103,6 +120,74 @@ class Trainee extends AbstractTrainee implements UserInterface
         return $this->birthDate;
     }
 
+    /**
+     * Set amuStatut
+     *
+     * @param mixed $amuStatut
+     *
+     * @return Trainee
+     */
+    public function setAmuStatut($amuStatut)
+    {
+        $this->amuStatut = $amuStatut;
+
+        return $this;
+    }
+
+    /**
+     * Get amuStatut
+     *
+     */
+    public function getAmuStatut()
+    {
+        return $this->amuStatut;
+    }
+
+    /**
+     * Set corps
+     *
+     * @param mixed $corps
+     *
+     * @return Trainee
+     */
+    public function setCorps($corps)
+    {
+        $this->corps = $corps;
+
+        return $this;
+    }
+
+    /**
+     * Get corps
+     *
+     */
+    public function getCorps()
+    {
+        return $this->corps;
+    }
+
+    /**
+     * Set category
+     *
+     * @param mixed $category
+     *
+     * @return Trainee
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
     /**
      * Set firstnameSup
      *

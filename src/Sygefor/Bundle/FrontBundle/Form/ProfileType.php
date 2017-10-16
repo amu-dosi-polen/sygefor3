@@ -34,6 +34,9 @@ class ProfileType extends TraineeType
         $builder->get('institution')->setDisabled(true);
         $builder->get('service')->setDisabled(true);
         $builder->remove('isActive');
+        $builder->get('amuStatut')->setDisabled(true);
+        $builder->get('corps')->setDisabled(true);
+        $builder->get('category')->setDisabled(true);
 
         //$builder
         //    ->add('service', null, array(

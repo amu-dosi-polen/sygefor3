@@ -13,6 +13,7 @@ use Monolog\Logger;
 use Sygefor\Bundle\ApiBundle\Controller\Account\AbstractAnonymousAccountController;
 use Sygefor\Bundle\FrontBundle\Form\ProfileType;
 use Sygefor\Bundle\MyCompanyBundle\Entity\Trainee;
+use Sygefor\Bundle\MyCompanyBundle\Entity\SupannCodeEntite;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -53,8 +54,26 @@ class AnonymousAccountController extends AbstractAnonymousAccountController
             array('name' => $shibbolethAttributes['primary_affiliation'])
         ));
         $trainee->setStatus($shibbolethAttributes['postalCode']);
-        $trainee->setService($shibbolethAttributes['supannEntiteAffectation']);
-        
+        $services = explode(";", $shibbolethAttributes['supannEntiteAffectation']);
+        $servicelib = "";
+        foreach($services as $service) {
+            $supannCodeEntite = $this->getDoctrine()->getRepository('SygeforMyCompanyBundle:SupannCodeEntite')->findOneBy(
+                array('supannCodeEntite' => $service)
+            );
+            if ($supannCodeEntite!=null) {
+                $servicelib .= $supannCodeEntite->getDescription() . " ; ";
+            }
+        }
+        $trainee->setService($servicelib);
+        $trainee->setAmuStatut($shibbolethAttributes['amuStatut']);
+        $corps = ltrim($shibbolethAttributes['supannEmpCorps'], "{NCORPS}");
+        $n_corps = $this->getDoctrine()->getRepository('SygeforMyCompanyBundle:Corps')->findOneBy(
+            array('corps' => $corps)
+        );
+        $trainee->setCorps($n_corps->getLibelleLong());
+        $trainee->setCategory($n_corps->getCategory());
+
+
         // Etablissement
         $eppn = $shibbolethAttributes['eppn'];
         if (stripos($eppn , "@")>0) {

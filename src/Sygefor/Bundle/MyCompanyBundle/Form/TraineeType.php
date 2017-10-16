@@ -43,6 +43,18 @@ class TraineeType extends BaseTraineeType
                 'format' => 'dd/MM/yyyy',
                 'required' => true,
             ))
+           ->add('amuStatut', null, array(
+               'required' => false,
+               'label'    => 'Statut',
+           ))
+           ->add('corps', null, array(
+               'required' => false,
+               'label'    => 'Corps',
+           ))
+           ->add('category', null, array(
+               'required' => false,
+               'label'    => 'Catégorie',
+           ))
            ->add('lastNameSup', null, array(
                'required' => true,
                'label'    => 'Nom',

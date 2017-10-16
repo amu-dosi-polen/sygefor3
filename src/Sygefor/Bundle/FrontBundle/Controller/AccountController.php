@@ -13,6 +13,8 @@ use Sygefor\Bundle\FrontBundle\Form\ProfileType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Sygefor\Bundle\MyCompanyBundle\Entity\Trainee;
+use Sygefor\Bundle\MyCompanyBundle\Entity\SupannCodeEntite;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -30,9 +32,68 @@ class AccountController extends Controller
      */
     public function accountAction(Request $request)
     {
+        // Récupération des attributs Shibboleth pour mise à jour du profil
+        $shibbolethAttributes = $this->get('security.token_storage')->getToken()->getAttributes();
+        $trainee = new Trainee();
+
+        $trainee->setTitle($this->getDoctrine()->getRepository('SygeforCoreBundle:PersonTrait\Term\Title')->findOneBy(
+            array('name' => $shibbolethAttributes['supannCivilite'])
+        ));
+        $trainee->setOrganization($this->getDoctrine()->getRepository('SygeforCoreBundle:Organization')->find(1));
+        $trainee->setLastName($shibbolethAttributes['sn']);
+        $trainee->setFirstName($shibbolethAttributes['givenName']);
+        $trainee->setEmail($shibbolethAttributes['mail']);
+        $trainee->setAddress($shibbolethAttributes['street']);
+        $trainee->setZip($shibbolethAttributes['postalCode']);
+        $trainee->setCity($shibbolethAttributes['postalAddress']);
+        $trainee->setPhoneNumber($shibbolethAttributes['telephoneNumber']);
+        $trainee->setPublicType($this->getDoctrine()->getRepository('Sygefor\Bundle\TraineeBundle\Entity\Term\PublicType')->findOneBy(
+            array('name' => $shibbolethAttributes['primary_affiliation'])
+        ));
+        $trainee->setStatus($shibbolethAttributes['postalCode']);
+        $services = explode(";", $shibbolethAttributes['supannEntiteAffectation']);
+        $servicelib = "";
+        foreach($services as $service) {
+            $supannCodeEntite = $this->getDoctrine()->getRepository('SygeforMyCompanyBundle:SupannCodeEntite')->findOneBy(
+                array('supannCodeEntite' => $service)
+            );
+            if ($supannCodeEntite!=null) {
+                $servicelib .= $supannCodeEntite->getDescription() . " ; ";
+            }
+        }
+        $trainee->setService($servicelib);
+        $trainee->setAmuStatut($shibbolethAttributes['amuStatut']);
+        $corps = ltrim($shibbolethAttributes['supannEmpCorps'], "{NCORPS}");
+        $n_corps = $this->getDoctrine()->getRepository('SygeforMyCompanyBundle:Corps')->findOneBy(
+            array('corps' => $corps)
+        );
+        $trainee->setCorps($n_corps->getLibelleLong());
+        $trainee->setCategory($n_corps->getCategory());
+
+        // Etablissement
+        $eppn = $shibbolethAttributes['eppn'];
+        if (stripos($eppn , "@")>0) {
+            $domaine = substr($eppn, stripos($eppn, "@") + 1);
+            switch($domaine) {
+                case "univ-amu.fr":
+                    $trainee->setInstitution($this->getDoctrine()->getRepository('Sygefor\Bundle\InstitutionBundle\Entity\AbstractInstitution')->findOneBy(
+                        array('name' => "AMU")
+                    ));
+                    break;
+                default:
+                    $trainee->setInstitution($this->getDoctrine()->getRepository('Sygefor\Bundle\InstitutionBundle\Entity\AbstractInstitution')->findOneBy(
+                        array('name' => "AMU")
+                    ));
+                    break;
+            }
+        }
+
         $user = $this->getUser();
         if ($user) {
             if ($user->getIsActive()) {
+                // Mise à jour du profil en base de données
+                $em = $this->getDoctrine()->getManager();
+                $em->flush();
                 // redirect user to registrations pages
                 $url = $this->generateUrl('front.account.registrations');
             }
@@ -58,7 +119,59 @@ class AccountController extends Controller
      */
     public function profileAction(Request $request)
     {
-        $form = $this->createForm(new ProfileType($this->get('sygefor_core.access_right_registry')), $this->getUser());
+        $options = array();
+        // Mise à jour du profil avec les attributs récupérés par Shibboleth
+        $shibbolethAttributes = $this->get('security.token_storage')->getToken()->getAttributes();
+        $trainee = $this->getUser();
+        $trainee->setTitle($this->getDoctrine()->getRepository('SygeforCoreBundle:PersonTrait\Term\Title')->findOneBy(
+            array('name' => $shibbolethAttributes['supannCivilite'])
+        ));
+        $trainee->setOrganization($this->getDoctrine()->getRepository('SygeforCoreBundle:Organization')->find(1));
+        $trainee->setLastName($shibbolethAttributes['sn']);
+        $trainee->setFirstName($shibbolethAttributes['givenName']);
+        $trainee->setEmail($shibbolethAttributes['mail']);
+        $trainee->setAddress($shibbolethAttributes['street']);
+        $trainee->setZip($shibbolethAttributes['postalCode']);
+        $trainee->setCity($shibbolethAttributes['postalAddress']);
+        $trainee->setPhoneNumber($shibbolethAttributes['telephoneNumber']);
+        $trainee->setPublicType($this->getDoctrine()->getRepository('Sygefor\Bundle\TraineeBundle\Entity\Term\PublicType')->findOneBy(
+            array('name' => $shibbolethAttributes['primary_affiliation'])
+        ));
+        $trainee->setStatus($shibbolethAttributes['postalCode']);
+
+        // Mise en forme pour le service
+        $services = explode(";", $shibbolethAttributes['supannEntiteAffectation']);
+        $servicelib = "";
+        foreach($services as $service) {
+            $supannCodeEntite = $this->getDoctrine()->getRepository('SygeforMyCompanyBundle:SupannCodeEntite')->findOneBy(
+                array('supannCodeEntite' => $service)
+            );
+            if ($supannCodeEntite!=null) {
+                $servicelib .= $supannCodeEntite->getDescription() . " ; ";
+            }
+        }
+        $trainee->setService($servicelib);
+
+
+        // Etablissement
+        $eppn = $shibbolethAttributes['eppn'];
+        if (stripos($eppn , "@")>0) {
+            $domaine = substr($eppn, stripos($eppn, "@") + 1);
+            switch($domaine) {
+                case "univ-amu.fr":
+                    $trainee->setInstitution($this->getDoctrine()->getRepository('Sygefor\Bundle\InstitutionBundle\Entity\AbstractInstitution')->findOneBy(
+                        array('name' => "AMU")
+                    ));
+                    break;
+                default:
+                    $trainee->setInstitution($this->getDoctrine()->getRepository('Sygefor\Bundle\InstitutionBundle\Entity\AbstractInstitution')->findOneBy(
+                        array('name' => "AMU")
+                    ));
+                    break;
+            }
+        }
+
+        $form = $this->createForm(new ProfileType($this->get('sygefor_core.access_right_registry')), $trainee);
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {

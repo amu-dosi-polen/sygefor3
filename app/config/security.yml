@@ -165,6 +165,10 @@ shibboleth:
             header: supannCivilite
         supannEntiteAffectation:
             header: supannEntiteAffectation
+        supannEntiteAffectationPrincipale:
+            header: supannEntiteAffectationPrincipale
+        supannEmpCorps:
+            header: supannEmpCorps
         supannEtablissement:
             header: supannEtablissement
         supannRoleEntite:
@@ -177,6 +181,8 @@ shibboleth:
             header: supannEtuTypeDiplome
         supannEtuTypeDiplome:
             header: supannEtuDiplome
+        amuStatut:
+            header: amuStatut
 # CORS
 nelmio_cors:
     defaults:
