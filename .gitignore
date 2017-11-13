@@ -13,7 +13,7 @@
 !app/logs/.gitkeep
 /build/
 /vendor/*
-!/vendor/sygefor/
+!vendor/sygefor/
 /bin/
 /composer.phar
 /node_modules
