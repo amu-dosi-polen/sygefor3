@@ -12,7 +12,8 @@
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /build/
-/vendor/
+/vendor/*
+!/vendor/sygefor/
 /bin/
 /composer.phar
 /node_modules
